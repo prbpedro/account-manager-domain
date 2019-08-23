@@ -12,7 +12,7 @@ import com.github.prbpedro.accountmanager.domain.util.Constants;
 /**
  * Configuration service class.
  * 
- * @author prbpe
+ * @author Pedro Ribeiro Baptista
  */
 @Singleton
 public class ConfigurationService implements IConfigurationService{

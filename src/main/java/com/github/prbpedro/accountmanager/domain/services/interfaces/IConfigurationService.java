@@ -6,7 +6,7 @@ import java.util.Properties;
 /**
  * ConfigurationService interface.
  * 
- * @author prbpe
+ * @author Pedro Ribeiro Baptista
  */
 public interface IConfigurationService {
 	

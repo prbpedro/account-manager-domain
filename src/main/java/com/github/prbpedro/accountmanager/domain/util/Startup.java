@@ -14,7 +14,7 @@ import com.github.prbpedro.accountmanager.domain.services.TransferTransactionSer
 /**
  * Class responsible for configuring this component CDI and database.
  * 
- * @author prbpe
+ * @author Pedro Ribeiro Baptista
  */
 public class Startup {
 	

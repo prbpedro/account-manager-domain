@@ -10,7 +10,7 @@ import com.github.prbpedro.accountmanager.domain.services.dto.TransferTransactio
 /**
  * Transaction validation service interface.
  * 
- * @author prbpe
+ * @author Pedro Ribeiro Baptista
  */
 public interface ITransactionValidationService {
 

@@ -8,7 +8,7 @@ import com.github.prbpedro.accountmanager.domain.tables.records.CurrencyRecord;
 /**
  * Class that contains the data used during a transfer execution.
  * 
- * @author prbpe
+ * @author Pedro Ribeiro Baptista
  */
 public class TransferTransactionalDataDto {
 

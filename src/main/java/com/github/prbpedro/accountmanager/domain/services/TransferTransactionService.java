@@ -24,7 +24,7 @@ import com.github.prbpedro.accountmanager.domain.util.Constants;
 /**
  * Transfer transaction service class.
  * 
- * @author prbpe
+ * @author Pedro Ribeiro Baptista
  */
 public class TransferTransactionService extends BaseService implements ITransferTransactionService{
 

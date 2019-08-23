@@ -4,7 +4,7 @@ package com.github.prbpedro.accountmanager.domain.util;
 /**
  * Class that defines all the component's constants.
  * 
- * @author prbpe
+ * @author Pedro Ribeiro Baptista
  */
 public class Constants {
 	

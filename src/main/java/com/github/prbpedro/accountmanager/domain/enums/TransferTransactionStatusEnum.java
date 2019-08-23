@@ -3,7 +3,7 @@ package com.github.prbpedro.accountmanager.domain.enums;
 /**
  * Enum that contains the possible status for the transfer transaction.
  * 
- * @author prbpe
+ * @author Pedro Ribeiro Baptista
  */
 public enum TransferTransactionStatusEnum {
 	/**

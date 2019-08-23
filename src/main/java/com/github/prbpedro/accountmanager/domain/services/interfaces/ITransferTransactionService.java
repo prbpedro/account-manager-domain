@@ -7,7 +7,7 @@ import com.github.prbpedro.accountmanager.domain.services.dto.TransferTransactio
 /**
  * Transfer transaction service interface.
  * 
- * @author prbpe
+ * @author Pedro Ribeiro Baptista
  */
 public interface ITransferTransactionService {
 	

@@ -27,7 +27,7 @@ import com.github.prbpedro.accountmanager.domain.util.Constants;
 /**
  * Database service class.
  * 
- * @author prbpe
+ * @author Pedro Ribeiro Baptista
  */
 public class DatabaseService implements IDatabaseService{
 	

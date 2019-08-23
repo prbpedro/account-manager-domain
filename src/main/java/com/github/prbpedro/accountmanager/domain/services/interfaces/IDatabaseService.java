@@ -9,7 +9,7 @@ import java.sql.SQLException;
 /**
  * Database service interface
  * 
- * @author prbpe
+ * @author Pedro Ribeiro Baptista
  */
 public interface IDatabaseService {
 

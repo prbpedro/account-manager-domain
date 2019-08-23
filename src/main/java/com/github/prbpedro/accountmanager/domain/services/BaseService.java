@@ -7,7 +7,7 @@ import com.github.prbpedro.accountmanager.domain.services.interfaces.IDatabaseSe
 /**
  * Base service class.
  * 
- * @author prbpe
+ * @author Pedro Ribeiro Baptista
  */
 public abstract class BaseService {
 
