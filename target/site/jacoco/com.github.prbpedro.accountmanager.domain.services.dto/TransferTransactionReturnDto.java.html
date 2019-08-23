@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TransferTransactionReturnDto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AccountManager</a> &gt; <a href="index.source.html" class="el_package">com.github.prbpedro.accountmanager.domain.services.dto</a> &gt; <span class="el_source">TransferTransactionReturnDto.java</span></div><h1>TransferTransactionReturnDto.java</h1><pre class="source lang-java linenums">package com.github.prbpedro.accountmanager.domain.services.dto;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.github.prbpedro.accountmanager.domain.enums.TransferTransactionStatusEnum;
+import com.github.prbpedro.accountmanager.domain.tables.records.AccountTransactionRecord;
+
+/**
+ * Class responsible for containing the data returned for a transfer transaction.
+ * 
+ * @author prbpe
+ */
+public class TransferTransactionReturnDto {
+	
+	private AccountTransactionRecord transferInformation;
+	
+	private TransferTransactionStatusEnum status;
+	
+	private List&lt;String&gt; messages;
+	
+	/**
+	 * Constructor
+	 */
+<span class="fc" id="L25">	public TransferTransactionReturnDto() {</span>
+<span class="fc" id="L26">		messages = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L27">	}</span>
+
+	/**
+	 * transferInformation getter
+	 * 
+	 * @return AccountTransactionRecord
+	 */
+	public AccountTransactionRecord getTransferInformation() {
+<span class="nc" id="L35">		return transferInformation;</span>
+	}
+
+	/**
+	 * transferInformation setter
+	 * 
+	 * @param transferInformation
+	 */
+	public void setTransferInformation(AccountTransactionRecord transferInformation) {
+<span class="fc" id="L44">		this.transferInformation = transferInformation;</span>
+<span class="fc" id="L45">	}</span>
+
+	/**
+	 * status getter
+	 * 
+	 * @return TransferTransactionStatusEnum
+	 */
+	public TransferTransactionStatusEnum getStatus() {
+<span class="fc" id="L53">		return status;</span>
+	}
+
+	/**
+	 * status setter
+	 * 
+	 * @param status
+	 */
+	public void setStatus(TransferTransactionStatusEnum status) {
+<span class="fc" id="L62">		this.status = status;</span>
+<span class="fc" id="L63">	}</span>
+
+	/**
+	 * Method responsible for adding a message.
+	 * 
+	 * @param msg
+	 */
+	public void addMessage(String msg) {
+<span class="fc" id="L71">		messages.add(msg);</span>
+<span class="fc" id="L72">	}</span>
+	
+	/**
+	 * status messages
+	 * 
+	 * @return List&lt;String&gt;
+	 */
+	public List&lt;String&gt; getMessages() {
+<span class="fc" id="L80">		return messages;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

@@ -1,0 +1,9 @@
+com.github.prbpedro.accountmanager.domain
+com.github.prbpedro.accountmanager.domain.cdi.producer
+com.github.prbpedro.accountmanager.domain.enums
+com.github.prbpedro.accountmanager.domain.services
+com.github.prbpedro.accountmanager.domain.services.dto
+com.github.prbpedro.accountmanager.domain.services.interfaces
+com.github.prbpedro.accountmanager.domain.tables
+com.github.prbpedro.accountmanager.domain.tables.records
+com.github.prbpedro.accountmanager.domain.util

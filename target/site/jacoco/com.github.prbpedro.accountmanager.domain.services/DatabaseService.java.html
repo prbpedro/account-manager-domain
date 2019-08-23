@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DatabaseService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AccountManager</a> &gt; <a href="index.source.html" class="el_package">com.github.prbpedro.accountmanager.domain.services</a> &gt; <span class="el_source">DatabaseService.java</span></div><h1>DatabaseService.java</h1><pre class="source lang-java linenums">package com.github.prbpedro.accountmanager.domain.services;
+
+import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.inject.Inject;
+
+import org.jooq.DSLContext;
+import org.jooq.Query;
+import org.jooq.Record;
+import org.jooq.SQLDialect;
+import org.jooq.impl.DSL;
+
+import com.github.prbpedro.accountmanager.domain.DefaultCatalog;
+import com.github.prbpedro.accountmanager.domain.services.interfaces.IConfigurationService;
+import com.github.prbpedro.accountmanager.domain.services.interfaces.IDatabaseService;
+import com.github.prbpedro.accountmanager.domain.tables.Account;
+import com.github.prbpedro.accountmanager.domain.tables.AccountBalance;
+import com.github.prbpedro.accountmanager.domain.tables.AccountTransaction;
+import com.github.prbpedro.accountmanager.domain.tables.Bank;
+import com.github.prbpedro.accountmanager.domain.tables.Currency;
+import com.github.prbpedro.accountmanager.domain.util.Constants;
+
+/**
+ * Database service class.
+ * 
+ * @author prbpe
+ */
+<span class="fc" id="L32">public class DatabaseService implements IDatabaseService{</span>
+	
+	/**
+	 * configurationService attribute.
+	 */
+	@Inject
+	private IConfigurationService configurationService;
+
+	/**
+	 * Method responsible for creating a Sql connection.
+	 * 
+	 * @return Connection
+	 * @throws SQLException
+	 */
+	public Connection createConnection() throws SQLException {
+<span class="fc" id="L47">		return DriverManager.getConnection(configurationService.getDatabaseConnectionString(),</span>
+<span class="fc" id="L48">				configurationService.getDatabaseUserName(), configurationService.getDatabaseUserPassword());</span>
+	}
+
+	/**
+	 * Method responsible for creating the database.
+	 * 
+	 * @throws SQLException
+	 */
+	public void createDatabase() throws SQLException {
+		
+<span class="fc" id="L58">		try (Connection conn = createConnection()) {</span>
+			
+<span class="fc" id="L60">			DSLContext context = DSL.using(conn, SQLDialect.H2);</span>
+			
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">			if(configurationService.isResetDatabase()) {				</span>
+				String sql;
+<span class="fc bfc" id="L64" title="All 2 branches covered.">				for (Query query : context.ddl(DefaultCatalog.DEFAULT_CATALOG.AC_DATABASE)) {</span>
+<span class="fc" id="L65">					try (Statement statement = conn.createStatement()) {</span>
+<span class="fc" id="L66">						sql = query.getSQL();</span>
+<span class="fc" id="L67">						sql = sql.replace(Constants.CREATE_TABLE, Constants.CREATE_TABLE + Constants.IF_NOT_EXISTS)</span>
+<span class="fc" id="L68">								.replace(Constants.ADD_CONSTRAINT, Constants.ADD_CONSTRAINT + Constants.IF_NOT_EXISTS)</span>
+<span class="fc" id="L69">								.replace(Constants.CREATE_SCHEMA, Constants.CREATE_SCHEMA + Constants.IF_NOT_EXISTS);</span>
+						
+<span class="fc" id="L71">						statement.execute(sql);</span>
+					}
+<span class="fc" id="L73">				}</span>
+			}
+			
+<span class="pc bpc" id="L76" title="3 of 4 branches missed.">			if(configurationService.isCleanDatabase() || configurationService.isResetDatabase()) {</span>
+<span class="fc" id="L77">				cleanDatabase(context);</span>
+			}
+			
+<span class="pc bpc" id="L80" title="1 of 2 branches missed.">			if(configurationService.isExecuteDefaultInserts()) {				</span>
+<span class="fc" id="L81">				insertDefaultValues(context);</span>
+			}
+		}
+<span class="fc" id="L84">	}</span>
+
+	/**
+	 * Method responsible for inserting the DEFAULT values in the database.
+	 * 
+	 * @param context
+	 */
+	private void insertDefaultValues(DSLContext context) {
+<span class="fc" id="L92">		Record revolut = context.insertInto(Bank.BANK, Bank.BANK.CODE).values(Constants.REVOLUT_BANK_CODE).returning()</span>
+<span class="fc" id="L93">				.fetchOne();</span>
+
+<span class="fc" id="L95">		Record boringBank = context.insertInto(Bank.BANK, Bank.BANK.CODE).values(Constants.BORINGBANK).returning()</span>
+<span class="fc" id="L96">				.fetchOne();</span>
+
+<span class="fc" id="L98">		Record gbp = context.insertInto(Currency.CURRENCY, Currency.CURRENCY.CODE).values(Constants.GBP).returning()</span>
+<span class="fc" id="L99">				.fetchOne();</span>
+
+<span class="fc" id="L101">		Record usd = context.insertInto(Currency.CURRENCY, Currency.CURRENCY.CODE).values(Constants.USD).returning()</span>
+<span class="fc" id="L102">				.fetchOne();</span>
+
+<span class="fc" id="L104">		Record brl = context.insertInto(Currency.CURRENCY, Currency.CURRENCY.CODE).values(Constants.BRL).returning()</span>
+<span class="fc" id="L105">				.fetchOne();</span>
+
+<span class="fc" id="L107">		insertDefaultAccounts(context, revolut, boringBank, gbp, usd, brl);</span>
+<span class="fc" id="L108">	}</span>
+
+	/**
+	 * Method responsible for inserting the accounts and the relations of these in the database.
+	 * 
+	 * @param context
+	 * @param revolut
+	 * @param boringBank
+	 * @param gbp
+	 * @param usd
+	 * @param brl
+	 */
+	private void insertDefaultAccounts(DSLContext context, Record revolut, Record boringBank, Record gbp, Record usd, Record brl) {
+<span class="fc bfc" id="L121" title="All 2 branches covered.">		for (int i = 0; i &lt; 10; i++) {</span>
+<span class="fc" id="L122">			String idAcc = String.format(Constants.ACCOUNT_ID_PATTERN, i);</span>
+<span class="fc" id="L123">			context</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">				.insertInto(Account.ACCOUNT, </span>
+					Account.ACCOUNT.ID, 
+					Account.ACCOUNT.BANK_ID,
+					Account.ACCOUNT.ACTIVE)
+<span class="fc" id="L128">				.values(idAcc,</span>
+<span class="fc bfc" id="L129" title="All 2 branches covered.">						i % 2 == 0 ? revolut.get(Bank.BANK.ID) : boringBank.get(Bank.BANK.ID),</span>
+<span class="fc" id="L130">						i &gt; 7 ? false : true)</span>
+<span class="fc" id="L131">				.execute();</span>
+			
+<span class="fc bfc" id="L133" title="All 2 branches covered.">			if (i % 2 == 0) {</span>
+<span class="fc" id="L134">				context</span>
+<span class="fc" id="L135">					.insertInto(AccountBalance.ACCOUNT_BALANCE, </span>
+							AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, 
+						AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, 
+						AccountBalance.ACCOUNT_BALANCE.VALUE)
+<span class="fc" id="L139">					.values(idAcc, gbp.get(Currency.CURRENCY.ID), BigDecimal.valueOf(i*1000))</span>
+<span class="fc" id="L140">					.execute();</span>
+			} else {
+<span class="fc" id="L142">				context</span>
+<span class="fc" id="L143">				.insertInto(AccountBalance.ACCOUNT_BALANCE, </span>
+						AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, 
+					AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, 
+					AccountBalance.ACCOUNT_BALANCE.VALUE)
+<span class="fc" id="L147">				.values(idAcc,usd.get(Currency.CURRENCY.ID), BigDecimal.valueOf(i*100))</span>
+<span class="fc" id="L148">				.execute();</span>
+			}
+
+<span class="fc bfc" id="L151" title="All 2 branches covered.">			if (i % 3 == 0) {</span>
+<span class="fc" id="L152">				context</span>
+<span class="fc" id="L153">				.insertInto(AccountBalance.ACCOUNT_BALANCE, </span>
+						AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, 
+					AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, 
+					AccountBalance.ACCOUNT_BALANCE.VALUE)
+<span class="fc" id="L157">				.values(idAcc,brl.get(Currency.CURRENCY.ID), BigDecimal.valueOf(i*1000000))</span>
+<span class="fc" id="L158">				.execute();</span>
+			}
+		}
+<span class="fc" id="L161">	}</span>
+
+	/**
+	 * Method responsible for cleaning the database.
+	 * 
+	 * @param context
+	 */
+	private void cleanDatabase(DSLContext context) {
+<span class="fc" id="L169">		context.deleteFrom(AccountTransaction.ACCOUNT_TRANSACTION).execute();</span>
+<span class="fc" id="L170">		context.deleteFrom(AccountBalance.ACCOUNT_BALANCE).execute();</span>
+<span class="fc" id="L171">		context.deleteFrom(Account.ACCOUNT).execute();</span>
+<span class="fc" id="L172">		context.deleteFrom(Bank.BANK).execute();</span>
+<span class="fc" id="L173">		context.deleteFrom(Currency.CURRENCY).execute();</span>
+<span class="fc" id="L174">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

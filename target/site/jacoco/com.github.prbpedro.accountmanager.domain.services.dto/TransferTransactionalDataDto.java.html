@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TransferTransactionalDataDto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AccountManager</a> &gt; <a href="index.source.html" class="el_package">com.github.prbpedro.accountmanager.domain.services.dto</a> &gt; <span class="el_source">TransferTransactionalDataDto.java</span></div><h1>TransferTransactionalDataDto.java</h1><pre class="source lang-java linenums">package com.github.prbpedro.accountmanager.domain.services.dto;
+
+import com.github.prbpedro.accountmanager.domain.tables.records.AccountBalanceRecord;
+import com.github.prbpedro.accountmanager.domain.tables.records.AccountRecord;
+import com.github.prbpedro.accountmanager.domain.tables.records.BankRecord;
+import com.github.prbpedro.accountmanager.domain.tables.records.CurrencyRecord;
+
+/**
+ * Class that contains the data used during a transfer execution.
+ * 
+ * @author prbpe
+ */
+<span class="fc" id="L13">public class TransferTransactionalDataDto {</span>
+
+	private AccountRecord senderAccount;
+	
+	private AccountRecord beneficiaryAccount;
+	
+	private CurrencyRecord currency;
+	
+	private BankRecord beneficiaryBank;
+	
+	private AccountBalanceRecord senderAcountBalance;
+	
+	private AccountBalanceRecord beneficiaryAccountBalance;
+	
+	private TransferTransactionReturnDto returnDto;
+
+	/**
+	 * senderAccount getter
+	 * 
+	 * @return AccountRecord
+	 */
+	public AccountRecord getSenderAccount() {
+<span class="fc" id="L35">		return senderAccount;</span>
+	}
+
+	/**
+	 * senderAccount setter
+	 * 
+	 * @param senderAccount
+	 */
+	public void setSenderAccount(AccountRecord senderAccount) {
+<span class="fc" id="L44">		this.senderAccount = senderAccount;</span>
+<span class="fc" id="L45">	}</span>
+
+	/**
+	 * beneficiaryAccount getter
+	 * 
+	 * @return AccountRecord
+	 */
+	public AccountRecord getBeneficiaryAccount() {
+<span class="fc" id="L53">		return beneficiaryAccount;</span>
+	}
+
+	/**
+	 * beneficiaryAccount setter
+	 * 
+	 * @param beneficiaryAccount
+	 */
+	public void setBeneficiaryAccount(AccountRecord beneficiaryAccount) {
+<span class="fc" id="L62">		this.beneficiaryAccount = beneficiaryAccount;</span>
+<span class="fc" id="L63">	}</span>
+
+	/**
+	 * currency getter
+	 * 
+	 * @return CurrencyRecord
+	 */
+	public CurrencyRecord getCurrency() {
+<span class="fc" id="L71">		return currency;</span>
+	}
+
+	/**
+	 * currency setter
+	 * 
+	 * @param currency
+	 */
+	public void setCurrency(CurrencyRecord currency) {
+<span class="fc" id="L80">		this.currency = currency;</span>
+<span class="fc" id="L81">	}</span>
+
+	/**
+	 * beneficiaryBank getter
+	 * 
+	 * @return BankRecord
+	 */
+	public BankRecord getBeneficiaryBank() {
+<span class="fc" id="L89">		return beneficiaryBank;</span>
+	}
+
+	/**
+	 * beneficiaryBank setter
+	 * 
+	 * @param beneficiaryBank
+	 */
+	public void setBeneficiaryBank(BankRecord beneficiaryBank) {
+<span class="fc" id="L98">		this.beneficiaryBank = beneficiaryBank;</span>
+<span class="fc" id="L99">	}</span>
+
+	/**
+	 * senderAcountBalance getter
+	 * 
+	 * @return AccountBalanceRecord
+	 */
+	public AccountBalanceRecord getSenderAcountBalance() {
+<span class="fc" id="L107">		return senderAcountBalance;</span>
+	}
+
+	/**
+	 * senderAcountBalance setter
+	 * 
+	 * @param senderAcountBalance
+	 */
+	public void setSenderAcountBalance(AccountBalanceRecord senderAcountBalance) {
+<span class="fc" id="L116">		this.senderAcountBalance = senderAcountBalance;</span>
+<span class="fc" id="L117">	}</span>
+
+	/**
+	 * beneficiaryAccountBalance getter
+	 * 
+	 * @return AccountBalanceRecord
+	 */
+	public AccountBalanceRecord getBeneficiaryAccountBalance() {
+<span class="fc" id="L125">		return beneficiaryAccountBalance;</span>
+	}
+
+	/**
+	 * beneficiaryAccountBalance setter
+	 * 
+	 * @param beneficiaryAccountBalance
+	 */
+	public void setBeneficiaryAccountBalance(AccountBalanceRecord beneficiaryAccountBalance) {
+<span class="fc" id="L134">		this.beneficiaryAccountBalance = beneficiaryAccountBalance;</span>
+<span class="fc" id="L135">	}</span>
+	
+	/**
+	 * returnDto getter
+	 * 
+	 * @return TransferTransactionReturnDto
+	 */
+	public TransferTransactionReturnDto getReturnDto() {
+<span class="fc" id="L143">		return returnDto;</span>
+	}
+	
+	/**
+	 * returnDto setter
+	 * 
+	 * @param returnDto
+	 */
+	public void setReturnDto(TransferTransactionReturnDto returnDto) {
+<span class="fc" id="L152">		this.returnDto = returnDto;</span>
+<span class="fc" id="L153">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>
