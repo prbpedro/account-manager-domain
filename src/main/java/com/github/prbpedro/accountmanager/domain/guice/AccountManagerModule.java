@@ -1,7 +1,5 @@
 package com.github.prbpedro.accountmanager.domain.guice;
 
-import java.io.IOException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +12,6 @@ import com.github.prbpedro.accountmanager.domain.services.interfaces.IDatabaseSe
 import com.github.prbpedro.accountmanager.domain.services.interfaces.ITransactionValidationService;
 import com.github.prbpedro.accountmanager.domain.services.interfaces.ITransferTransactionService;
 import com.google.inject.AbstractModule;
-import com.google.inject.Provides;
 import com.google.inject.Singleton;
 
 public class AccountManagerModule extends AbstractModule {
