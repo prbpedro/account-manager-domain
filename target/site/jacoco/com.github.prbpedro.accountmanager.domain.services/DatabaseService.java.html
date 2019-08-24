@@ -27,7 +27,7 @@ import com.github.prbpedro.accountmanager.domain.util.Constants;
 /**
  * Database service class.
  * 
- * @author prbpe
+ * @author Pedro Ribeiro Baptista
  */
 <span class="fc" id="L32">public class DatabaseService implements IDatabaseService{</span>
 	
@@ -70,7 +70,7 @@ import com.github.prbpedro.accountmanager.domain.util.Constants;
 						
 <span class="fc" id="L71">						statement.execute(sql);</span>
 					}
-<span class="fc" id="L73">				}</span>
+				}
 			}
 			
 <span class="pc bpc" id="L76" title="3 of 4 branches missed.">			if(configurationService.isCleanDatabase() || configurationService.isResetDatabase()) {</span>
@@ -121,29 +121,29 @@ import com.github.prbpedro.accountmanager.domain.util.Constants;
 <span class="fc bfc" id="L121" title="All 2 branches covered.">		for (int i = 0; i &lt; 10; i++) {</span>
 <span class="fc" id="L122">			String idAcc = String.format(Constants.ACCOUNT_ID_PATTERN, i);</span>
 <span class="fc" id="L123">			context</span>
-<span class="fc bfc" id="L124" title="All 2 branches covered.">				.insertInto(Account.ACCOUNT, </span>
-					Account.ACCOUNT.ID, 
-					Account.ACCOUNT.BANK_ID,
-					Account.ACCOUNT.ACTIVE)
+<span class="fc" id="L124">				.insertInto(Account.ACCOUNT, </span>
+<span class="fc" id="L125">					Account.ACCOUNT.ID, </span>
+<span class="fc" id="L126">					Account.ACCOUNT.BANK_ID,</span>
+<span class="fc" id="L127">					Account.ACCOUNT.ACTIVE)</span>
 <span class="fc" id="L128">				.values(idAcc,</span>
 <span class="fc bfc" id="L129" title="All 2 branches covered.">						i % 2 == 0 ? revolut.get(Bank.BANK.ID) : boringBank.get(Bank.BANK.ID),</span>
-<span class="fc" id="L130">						i &gt; 7 ? false : true)</span>
+<span class="fc bfc" id="L130" title="All 2 branches covered.">						i &gt; 7 ? false : true)</span>
 <span class="fc" id="L131">				.execute();</span>
 			
 <span class="fc bfc" id="L133" title="All 2 branches covered.">			if (i % 2 == 0) {</span>
 <span class="fc" id="L134">				context</span>
 <span class="fc" id="L135">					.insertInto(AccountBalance.ACCOUNT_BALANCE, </span>
-							AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, 
-						AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, 
-						AccountBalance.ACCOUNT_BALANCE.VALUE)
+<span class="fc" id="L136">							AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, </span>
+<span class="fc" id="L137">						AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, </span>
+<span class="fc" id="L138">						AccountBalance.ACCOUNT_BALANCE.VALUE)</span>
 <span class="fc" id="L139">					.values(idAcc, gbp.get(Currency.CURRENCY.ID), BigDecimal.valueOf(i*1000))</span>
 <span class="fc" id="L140">					.execute();</span>
-			} else {
+<span class="fc" id="L141">			} else {</span>
 <span class="fc" id="L142">				context</span>
 <span class="fc" id="L143">				.insertInto(AccountBalance.ACCOUNT_BALANCE, </span>
-						AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, 
-					AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, 
-					AccountBalance.ACCOUNT_BALANCE.VALUE)
+<span class="fc" id="L144">						AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, </span>
+<span class="fc" id="L145">					AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, </span>
+<span class="fc" id="L146">					AccountBalance.ACCOUNT_BALANCE.VALUE)</span>
 <span class="fc" id="L147">				.values(idAcc,usd.get(Currency.CURRENCY.ID), BigDecimal.valueOf(i*100))</span>
 <span class="fc" id="L148">				.execute();</span>
 			}
@@ -151,9 +151,9 @@ import com.github.prbpedro.accountmanager.domain.util.Constants;
 <span class="fc bfc" id="L151" title="All 2 branches covered.">			if (i % 3 == 0) {</span>
 <span class="fc" id="L152">				context</span>
 <span class="fc" id="L153">				.insertInto(AccountBalance.ACCOUNT_BALANCE, </span>
-						AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, 
-					AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, 
-					AccountBalance.ACCOUNT_BALANCE.VALUE)
+<span class="fc" id="L154">						AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, </span>
+<span class="fc" id="L155">					AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, </span>
+<span class="fc" id="L156">					AccountBalance.ACCOUNT_BALANCE.VALUE)</span>
 <span class="fc" id="L157">				.values(idAcc,brl.get(Currency.CURRENCY.ID), BigDecimal.valueOf(i*1000000))</span>
 <span class="fc" id="L158">				.execute();</span>
 			}

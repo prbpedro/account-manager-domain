@@ -3,8 +3,7 @@ package com.github.prbpedro.accountmanager.domain.cdi.producer;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class that contains the method to produce Logger whith CDI.
@@ -20,7 +19,7 @@ public class LoggerProducer {
 	 * @return Logger
 	 */
     @Produces  
-    public Logger produceLogger(InjectionPoint injectionPoint) {  
-        return LogManager.getLogger(injectionPoint.getMember().getDeclaringClass());  
+    public org.slf4j.Logger produceLogger(InjectionPoint injectionPoint) {  
+        return LoggerFactory.getLogger(injectionPoint.getMember().getDeclaringClass());  
     }  
 }  

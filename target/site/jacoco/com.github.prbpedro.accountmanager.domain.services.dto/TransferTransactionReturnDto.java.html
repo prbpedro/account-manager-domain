@@ -9,7 +9,7 @@ import com.github.prbpedro.accountmanager.domain.tables.records.AccountTransacti
 /**
  * Class responsible for containing the data returned for a transfer transaction.
  * 
- * @author prbpe
+ * @author Pedro Ribeiro Baptista
  */
 public class TransferTransactionReturnDto {
 	

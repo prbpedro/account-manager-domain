@@ -5,11 +5,11 @@ import java.sql.Connection;
 
 import javax.inject.Inject;
 
-import org.apache.logging.log4j.Logger;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.UpdatableRecord;
 import org.jooq.impl.DSL;
+import org.slf4j.Logger;
 
 import com.github.prbpedro.accountmanager.domain.enums.TransferTransactionStatusEnum;
 import com.github.prbpedro.accountmanager.domain.services.dto.TransferTransactionReturnDto;
@@ -105,7 +105,7 @@ public class TransferTransactionService extends BaseService implements ITransfer
 			
 			return ret;
 		}catch (Exception e) {
-			logger.error(e);
+			logger.error(e.getMessage(), e);
 			
 			TransferTransactionReturnDto ret = new TransferTransactionReturnDto();
 			ret.setStatus(TransferTransactionStatusEnum.ERROR_PROCESSING);

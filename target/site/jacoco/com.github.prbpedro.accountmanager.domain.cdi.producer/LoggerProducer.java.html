@@ -3,15 +3,14 @@
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class that contains the method to produce Logger whith CDI.
  * 
  * @author Pedro Ribeiro Baptista
  */
-<span class="fc" id="L14">public class LoggerProducer {   </span>
+<span class="fc" id="L13">public class LoggerProducer {   </span>
 	
 	/**
 	 * Method responsible for generating Loggers.
@@ -20,8 +19,8 @@ import org.apache.logging.log4j.Logger;
 	 * @return Logger
 	 */
     @Produces  
-    public Logger produceLogger(InjectionPoint injectionPoint) {  
-<span class="fc" id="L24">        return LogManager.getLogger(injectionPoint.getMember().getDeclaringClass());  </span>
+    public org.slf4j.Logger produceLogger(InjectionPoint injectionPoint) {  
+<span class="fc" id="L23">        return LoggerFactory.getLogger(injectionPoint.getMember().getDeclaringClass());  </span>
     }  
 }  
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>
