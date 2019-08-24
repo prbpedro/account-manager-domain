@@ -157,4 +157,9 @@ public class Constants {
 	 * Constant BORINGBANK
 	 */
 	public static final String BORINGBANK = "BORINGBANK";
+	
+	/**
+	 * Constant BREAK
+	 */
+	public static final String BREAK = "\n\n";
 }

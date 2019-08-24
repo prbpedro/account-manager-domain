@@ -44,14 +44,14 @@ import com.github.prbpedro.accountmanager.domain.util.Constants;
 	}
 	
 	/**
-	 * Method responsible for returning a database account record.
+	 * Method responsible for returning an active database account record.
 	 * 
 	 * @param context
 	 * @param idAccount
 	 * @return AccountRecord
 	 */
-	private AccountRecord getAccount(DSLContext context, String idAccount) {
-<span class="fc" id="L54">		return context.selectFrom(Account.ACCOUNT).where(Account.ACCOUNT.ID.eq(idAccount)).fetchOne();</span>
+	private AccountRecord getActiveAccount(DSLContext context, String idAccount) {
+<span class="fc" id="L54">		return context.selectFrom(Account.ACCOUNT).where(Account.ACCOUNT.ID.eq(idAccount).and(Account.ACCOUNT.ACTIVE.eq(true))).fetchOne();</span>
 	}
 	
 	/**
@@ -237,7 +237,7 @@ import com.github.prbpedro.accountmanager.domain.util.Constants;
 <span class="fc" id="L237">		ret.setCurrency(context.selectFrom(Currency.CURRENCY).where(Currency.CURRENCY.CODE.eq(codeCurrency)).fetchOne());</span>
 <span class="fc bfc" id="L238" title="All 2 branches covered.">		if(ret.getCurrency() == null) {</span>
 <span class="fc" id="L239">			ret.setReturnDto(new TransferTransactionReturnDto());</span>
-<span class="fc" id="L240">			ret.getReturnDto().setStatus(TransferTransactionStatusEnum.NOT_PROCESSED);</span>
+<span class="fc" id="L240">			ret.getReturnDto().setStatus(TransferTransactionStatusEnum.NOT_FOUND);</span>
 <span class="fc" id="L241">			ret.getReturnDto().addMessage(String.format(Constants.NOT_PROCESSED_NOT_EXISTS, Constants.TRANSACTIONS, Constants.CURRENCY));</span>
 <span class="fc" id="L242">			return false;</span>
 		}
@@ -255,10 +255,10 @@ import com.github.prbpedro.accountmanager.domain.util.Constants;
 	 */
 	private boolean validateBeneficiaryAccountExistence(DSLContext context, String idBeneficiary,
 			TransferTransactionalDataDto ret) {
-<span class="fc" id="L258">		ret.setBeneficiaryAccount((getAccount(context, idBeneficiary)));</span>
+<span class="fc" id="L258">		ret.setBeneficiaryAccount((getActiveAccount(context, idBeneficiary)));</span>
 <span class="fc bfc" id="L259" title="All 2 branches covered.">		if(ret.getBeneficiaryAccount() == null) {</span>
 <span class="fc" id="L260">			ret.setReturnDto(new TransferTransactionReturnDto());</span>
-<span class="fc" id="L261">			ret.getReturnDto().setStatus(TransferTransactionStatusEnum.NOT_PROCESSED);</span>
+<span class="fc" id="L261">			ret.getReturnDto().setStatus(TransferTransactionStatusEnum.NOT_FOUND);</span>
 <span class="fc" id="L262">			ret.getReturnDto().addMessage(String.format(Constants.NOT_PROCESSED_NOT_EXISTS, Constants.BENEFICIARYS, Constants.ACCOUNT));</span>
 <span class="fc" id="L263">			return false;</span>
 		}
@@ -276,10 +276,10 @@ import com.github.prbpedro.accountmanager.domain.util.Constants;
 	 */
 	private boolean validateSenderAccountExistence(DSLContext context, String idAccountSender,
 			TransferTransactionalDataDto ret) {
-<span class="fc" id="L279">		ret.setSenderAccount(getAccount(context, idAccountSender));</span>
+<span class="fc" id="L279">		ret.setSenderAccount(getActiveAccount(context, idAccountSender));</span>
 <span class="fc bfc" id="L280" title="All 2 branches covered.">		if(ret.getSenderAccount() == null) {</span>
 <span class="fc" id="L281">			ret.setReturnDto(new TransferTransactionReturnDto());</span>
-<span class="fc" id="L282">			ret.getReturnDto().setStatus(TransferTransactionStatusEnum.NOT_PROCESSED);</span>
+<span class="fc" id="L282">			ret.getReturnDto().setStatus(TransferTransactionStatusEnum.NOT_FOUND);</span>
 <span class="fc" id="L283">			ret.getReturnDto().addMessage(String.format(Constants.NOT_PROCESSED_NOT_EXISTS, Constants.SENDERS, Constants.ACCOUNT));</span>
 <span class="fc" id="L284">			return false;</span>
 		}

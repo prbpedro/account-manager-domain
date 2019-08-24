@@ -13,7 +13,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.prbpedro</groupId>
 	<artifactId>account-manager-domain</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.2</version>
 	<name>AccountManager</name>
 	<description>Responsable for controlling the account's and transfers persistence</description>
 

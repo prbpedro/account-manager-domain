@@ -27,4 +27,12 @@ public interface IDatabaseService {
 	 * @throws SQLException
 	 */
 	void createDatabase() throws SQLException;
+	
+	/**
+	 * Method responsible for return the Database data
+	 * 
+	 * @return String
+	 * @throws SQLException 
+	 */
+	String getDatabaseData() throws SQLException;
 }

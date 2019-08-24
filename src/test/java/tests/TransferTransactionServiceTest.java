@@ -106,7 +106,7 @@ private static TransferTransactionService transferTransactionService;
 	public void testErrorTransfer() throws SQLException
 	{	
 		TransferTransactionReturnDto ret = transferTransactionService.doTransferTransaction("ACCOUNT_1", "ACCOUNT_9999", Constants.REVOLUT_BANK_CODE, Constants.USD, BigDecimal.ONE);
-		Assert.assertEquals(TransferTransactionStatusEnum.NOT_PROCESSED, ret.getStatus());
+		Assert.assertEquals(TransferTransactionStatusEnum.NOT_FOUND, ret.getStatus());
 		Assert.assertEquals("Beneficiary's account doesn't exists.", ret.getMessages().get(0));
 	}
 }

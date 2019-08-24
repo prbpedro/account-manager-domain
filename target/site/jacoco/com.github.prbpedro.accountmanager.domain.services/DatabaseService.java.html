@@ -172,5 +172,24 @@ import com.github.prbpedro.accountmanager.domain.util.Constants;
 <span class="fc" id="L172">		context.deleteFrom(Bank.BANK).execute();</span>
 <span class="fc" id="L173">		context.deleteFrom(Currency.CURRENCY).execute();</span>
 <span class="fc" id="L174">	}</span>
+
+	/**
+	 * Method responsible for return the Database data
+	 * 
+	 * @return String
+	 * @throws SQLException 
+	 */
+	public String getDatabaseData() throws SQLException {
+<span class="fc" id="L183">		try (Connection conn = createConnection()) {</span>
+<span class="fc" id="L184">			DSLContext context = DSL.using(conn, SQLDialect.H2);</span>
+<span class="fc" id="L185">			StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L186">			sb.append(context.selectFrom(Bank.BANK).fetch().toString() + Constants.BREAK);</span>
+<span class="fc" id="L187">			sb.append(context.selectFrom(Currency.CURRENCY).fetch().toString() + Constants.BREAK);</span>
+<span class="fc" id="L188">			sb.append(context.selectFrom(Account.ACCOUNT).fetch().toString() + Constants.BREAK);</span>
+<span class="fc" id="L189">			sb.append(context.selectFrom(AccountBalance.ACCOUNT_BALANCE).fetch().toString() + Constants.BREAK);</span>
+<span class="fc" id="L190">			sb.append(context.selectFrom(AccountTransaction.ACCOUNT_TRANSACTION).fetch().toString() + Constants.BREAK);</span>
+<span class="fc" id="L191">			return sb.toString();</span>
+		}
+	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

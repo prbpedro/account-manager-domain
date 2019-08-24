@@ -17,6 +17,11 @@ public enum TransferTransactionStatusEnum {
 	NOT_PROCESSED,
 	
 	/**
+	 * Not found transfer's status.
+	 */
+	NOT_FOUND,
+	
+	/**
 	 * Transfer's that generated erros while beeing processed.
 	 */
 	ERROR_PROCESSING

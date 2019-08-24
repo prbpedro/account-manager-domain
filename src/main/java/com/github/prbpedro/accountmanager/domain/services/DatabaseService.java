@@ -172,4 +172,23 @@ public class DatabaseService implements IDatabaseService{
 		context.deleteFrom(Bank.BANK).execute();
 		context.deleteFrom(Currency.CURRENCY).execute();
 	}
+
+	/**
+	 * Method responsible for return the Database data
+	 * 
+	 * @return String
+	 * @throws SQLException 
+	 */
+	public String getDatabaseData() throws SQLException {
+		try (Connection conn = createConnection()) {
+			DSLContext context = DSL.using(conn, SQLDialect.H2);
+			StringBuilder sb = new StringBuilder();
+			sb.append(context.selectFrom(Bank.BANK).fetch().toString() + Constants.BREAK);
+			sb.append(context.selectFrom(Currency.CURRENCY).fetch().toString() + Constants.BREAK);
+			sb.append(context.selectFrom(Account.ACCOUNT).fetch().toString() + Constants.BREAK);
+			sb.append(context.selectFrom(AccountBalance.ACCOUNT_BALANCE).fetch().toString() + Constants.BREAK);
+			sb.append(context.selectFrom(AccountTransaction.ACCOUNT_TRANSACTION).fetch().toString() + Constants.BREAK);
+			return sb.toString();
+		}
+	}
 }

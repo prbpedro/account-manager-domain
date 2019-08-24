@@ -44,14 +44,14 @@ public class TransactionValidationService extends BaseService implements ITransa
 	}
 	
 	/**
-	 * Method responsible for returning a database account record.
+	 * Method responsible for returning an active database account record.
 	 * 
 	 * @param context
 	 * @param idAccount
 	 * @return AccountRecord
 	 */
-	private AccountRecord getAccount(DSLContext context, String idAccount) {
-		return context.selectFrom(Account.ACCOUNT).where(Account.ACCOUNT.ID.eq(idAccount)).fetchOne();
+	private AccountRecord getActiveAccount(DSLContext context, String idAccount) {
+		return context.selectFrom(Account.ACCOUNT).where(Account.ACCOUNT.ID.eq(idAccount).and(Account.ACCOUNT.ACTIVE.eq(true))).fetchOne();
 	}
 	
 	/**
@@ -237,7 +237,7 @@ public class TransactionValidationService extends BaseService implements ITransa
 		ret.setCurrency(context.selectFrom(Currency.CURRENCY).where(Currency.CURRENCY.CODE.eq(codeCurrency)).fetchOne());
 		if(ret.getCurrency() == null) {
 			ret.setReturnDto(new TransferTransactionReturnDto());
-			ret.getReturnDto().setStatus(TransferTransactionStatusEnum.NOT_PROCESSED);
+			ret.getReturnDto().setStatus(TransferTransactionStatusEnum.NOT_FOUND);
 			ret.getReturnDto().addMessage(String.format(Constants.NOT_PROCESSED_NOT_EXISTS, Constants.TRANSACTIONS, Constants.CURRENCY));
 			return false;
 		}
@@ -255,10 +255,10 @@ public class TransactionValidationService extends BaseService implements ITransa
 	 */
 	private boolean validateBeneficiaryAccountExistence(DSLContext context, String idBeneficiary,
 			TransferTransactionalDataDto ret) {
-		ret.setBeneficiaryAccount((getAccount(context, idBeneficiary)));
+		ret.setBeneficiaryAccount((getActiveAccount(context, idBeneficiary)));
 		if(ret.getBeneficiaryAccount() == null) {
 			ret.setReturnDto(new TransferTransactionReturnDto());
-			ret.getReturnDto().setStatus(TransferTransactionStatusEnum.NOT_PROCESSED);
+			ret.getReturnDto().setStatus(TransferTransactionStatusEnum.NOT_FOUND);
 			ret.getReturnDto().addMessage(String.format(Constants.NOT_PROCESSED_NOT_EXISTS, Constants.BENEFICIARYS, Constants.ACCOUNT));
 			return false;
 		}
@@ -276,10 +276,10 @@ public class TransactionValidationService extends BaseService implements ITransa
 	 */
 	private boolean validateSenderAccountExistence(DSLContext context, String idAccountSender,
 			TransferTransactionalDataDto ret) {
-		ret.setSenderAccount(getAccount(context, idAccountSender));
+		ret.setSenderAccount(getActiveAccount(context, idAccountSender));
 		if(ret.getSenderAccount() == null) {
 			ret.setReturnDto(new TransferTransactionReturnDto());
-			ret.getReturnDto().setStatus(TransferTransactionStatusEnum.NOT_PROCESSED);
+			ret.getReturnDto().setStatus(TransferTransactionStatusEnum.NOT_FOUND);
 			ret.getReturnDto().addMessage(String.format(Constants.NOT_PROCESSED_NOT_EXISTS, Constants.SENDERS, Constants.ACCOUNT));
 			return false;
 		}
