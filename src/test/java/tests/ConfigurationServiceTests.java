@@ -5,11 +5,9 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.github.prbpedro.accountmanager.domain.services.ConfigurationService;
-import com.github.prbpedro.accountmanager.domain.services.TransactionValidationService;
 import com.github.prbpedro.accountmanager.domain.util.Constants;
 import com.github.prbpedro.accountmanager.domain.util.Startup;
 

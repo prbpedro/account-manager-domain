@@ -9,13 +9,10 @@ import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.github.prbpedro.accountmanager.domain.enums.TransferTransactionStatusEnum;
-import com.github.prbpedro.accountmanager.domain.services.DatabaseService;
-import com.github.prbpedro.accountmanager.domain.services.TransactionValidationService;
 import com.github.prbpedro.accountmanager.domain.services.TransferTransactionService;
 import com.github.prbpedro.accountmanager.domain.services.dto.TransferTransactionReturnDto;
 import com.github.prbpedro.accountmanager.domain.tables.AccountBalance;

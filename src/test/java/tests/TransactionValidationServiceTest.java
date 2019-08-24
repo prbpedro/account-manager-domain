@@ -9,13 +9,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.github.prbpedro.accountmanager.domain.enums.TransferTransactionStatusEnum;
-import com.github.prbpedro.accountmanager.domain.services.DatabaseService;
 import com.github.prbpedro.accountmanager.domain.services.TransactionValidationService;
-import com.github.prbpedro.accountmanager.domain.services.TransferTransactionService;
 import com.github.prbpedro.accountmanager.domain.services.dto.TransferTransactionalDataDto;
 import com.github.prbpedro.accountmanager.domain.util.Constants;
 import com.github.prbpedro.accountmanager.domain.util.Startup;
-
+	
 public class TransactionValidationServiceTest {
 
 	private static TransactionValidationService transactionValidationService;
