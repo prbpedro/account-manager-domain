@@ -6,8 +6,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.inject.Inject;
-
 import org.jooq.DSLContext;
 import org.jooq.Query;
 import org.jooq.Record;
@@ -23,6 +21,7 @@ import com.github.prbpedro.accountmanager.domain.tables.AccountTransaction;
 import com.github.prbpedro.accountmanager.domain.tables.Bank;
 import com.github.prbpedro.accountmanager.domain.tables.Currency;
 import com.github.prbpedro.accountmanager.domain.util.Constants;
+import com.google.inject.Inject;
 
 /**
  * Database service class.
@@ -30,7 +29,6 @@ import com.github.prbpedro.accountmanager.domain.util.Constants;
  * @author Pedro Ribeiro Baptista
  */
 public class DatabaseService implements IDatabaseService{
-	
 	/**
 	 * configurationService attribute.
 	 */
@@ -44,6 +42,7 @@ public class DatabaseService implements IDatabaseService{
 	 * @throws SQLException
 	 */
 	public Connection createConnection() throws SQLException {
+		
 		return DriverManager.getConnection(configurationService.getDatabaseConnectionString(),
 				configurationService.getDatabaseUserName(), configurationService.getDatabaseUserPassword());
 	}

@@ -3,8 +3,6 @@
 import java.math.BigDecimal;
 import java.sql.Connection;
 
-import javax.inject.Inject;
-
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.UpdatableRecord;
@@ -20,13 +18,14 @@ import com.github.prbpedro.accountmanager.domain.tables.AccountBalance;
 import com.github.prbpedro.accountmanager.domain.tables.AccountTransaction;
 import com.github.prbpedro.accountmanager.domain.tables.records.AccountBalanceRecord;
 import com.github.prbpedro.accountmanager.domain.util.Constants;
+import com.google.inject.Inject;
 
 /**
  * Transfer transaction service class.
  * 
  * @author Pedro Ribeiro Baptista
  */
-<span class="fc" id="L29">public class TransferTransactionService extends BaseService implements ITransferTransactionService{</span>
+<span class="fc" id="L28">public class TransferTransactionService extends BaseService implements ITransferTransactionService{</span>
 
 	/**
 	 * transactionValidationService attribute.
@@ -52,65 +51,65 @@ import com.github.prbpedro.accountmanager.domain.util.Constants;
 	 */
 	public TransferTransactionReturnDto doTransferTransaction(String idAccountSender, String idAccountBeneficiary, String codeBankBeneficiary, String codeCurrency, BigDecimal ammount) {
 		
-<span class="fc" id="L55">		try (Connection conn = databaseService.createConnection()){</span>
+<span class="fc" id="L54">		try (Connection conn = databaseService.createConnection()){</span>
 				
-<span class="fc" id="L57">			DSLContext context = DSL.using(conn, SQLDialect.H2);</span>
+<span class="fc" id="L56">			DSLContext context = DSL.using(conn, SQLDialect.H2);</span>
 			
-<span class="fc" id="L59">			TransferTransactionalDataDto dataDto = transactionValidationService.validateTransfer(idAccountSender, idAccountBeneficiary, codeBankBeneficiary, codeCurrency, ammount, context);</span>
+<span class="fc" id="L58">			TransferTransactionalDataDto dataDto = transactionValidationService.validateTransfer(idAccountSender, idAccountBeneficiary, codeBankBeneficiary, codeCurrency, ammount, context);</span>
 			
-<span class="fc bfc" id="L61" title="All 2 branches covered.">			if(dataDto.getReturnDto()!=null){</span>
-<span class="fc" id="L62">				return dataDto.getReturnDto();</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">			if(dataDto.getReturnDto()!=null){</span>
+<span class="fc" id="L61">				return dataDto.getReturnDto();</span>
 			}
 		
-<span class="fc" id="L65">			TransferTransactionReturnDto ret = new TransferTransactionReturnDto();</span>
-<span class="fc" id="L66">			context.transaction(configuration -&gt; {</span>
+<span class="fc" id="L64">			TransferTransactionReturnDto ret = new TransferTransactionReturnDto();</span>
+<span class="fc" id="L65">			context.transaction(configuration -&gt; {</span>
 				
-<span class="fc" id="L68">				AccountBalanceRecord senderAccountBalance = dataDto.getSenderAcountBalance();</span>
-<span class="fc" id="L69">				senderAccountBalance.set(AccountBalance.ACCOUNT_BALANCE.VALUE, senderAccountBalance.getValue().add(ammount.negate()));</span>
-<span class="fc" id="L70">				((UpdatableRecord&lt;?&gt;)senderAccountBalance).store();</span>
+<span class="fc" id="L67">				AccountBalanceRecord senderAccountBalance = dataDto.getSenderAcountBalance();</span>
+<span class="fc" id="L68">				senderAccountBalance.set(AccountBalance.ACCOUNT_BALANCE.VALUE, senderAccountBalance.getValue().add(ammount.negate()));</span>
+<span class="fc" id="L69">				((UpdatableRecord&lt;?&gt;)senderAccountBalance).store();</span>
 				
-<span class="fc bfc" id="L72" title="All 2 branches covered.">				if(dataDto.getBeneficiaryAccountBalance() == null) {</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">				if(dataDto.getBeneficiaryAccountBalance() == null) {</span>
 				
-<span class="fc" id="L74">					dataDto.setBeneficiaryAccountBalance(context.insertInto(</span>
-<span class="fc" id="L75">						AccountBalance.ACCOUNT_BALANCE, </span>
-<span class="fc" id="L76">						AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, </span>
-<span class="fc" id="L77">						AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, </span>
-<span class="fc" id="L78">						AccountBalance.ACCOUNT_BALANCE.VALUE)</span>
-<span class="fc" id="L79">					.values(</span>
-<span class="fc" id="L80">							dataDto.getBeneficiaryAccount().getId(),</span>
-<span class="fc" id="L81">							dataDto.getCurrency().getId(),</span>
-<span class="fc" id="L82">							ammount)</span>
-<span class="fc" id="L83">					.returning()</span>
-<span class="fc" id="L84">					.fetchOne());</span>
-<span class="fc" id="L85">				}else {</span>
-<span class="fc" id="L86">					AccountBalanceRecord beneficiaryAccountBalance = dataDto.getBeneficiaryAccountBalance();</span>
-<span class="fc" id="L87">					beneficiaryAccountBalance.setValue(ammount);</span>
-<span class="fc" id="L88">					((UpdatableRecord&lt;?&gt;)beneficiaryAccountBalance).store();</span>
+<span class="fc" id="L73">					dataDto.setBeneficiaryAccountBalance(context.insertInto(</span>
+						AccountBalance.ACCOUNT_BALANCE, 
+						AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, 
+						AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, 
+						AccountBalance.ACCOUNT_BALANCE.VALUE)
+<span class="fc" id="L78">					.values(</span>
+<span class="fc" id="L79">							dataDto.getBeneficiaryAccount().getId(),</span>
+<span class="fc" id="L80">							dataDto.getCurrency().getId(),</span>
+							ammount)
+<span class="fc" id="L82">					.returning()</span>
+<span class="fc" id="L83">					.fetchOne());</span>
+				}else {
+<span class="fc" id="L85">					AccountBalanceRecord beneficiaryAccountBalance = dataDto.getBeneficiaryAccountBalance();</span>
+<span class="fc" id="L86">					beneficiaryAccountBalance.setValue(ammount);</span>
+<span class="fc" id="L87">					((UpdatableRecord&lt;?&gt;)beneficiaryAccountBalance).store();</span>
 				}
 				
-<span class="fc" id="L91">				ret.setTransferInformation(</span>
-<span class="fc" id="L92">						context.insertInto(AccountTransaction.ACCOUNT_TRANSACTION)</span>
-<span class="fc" id="L93">						.set(AccountTransaction.ACCOUNT_TRANSACTION.SENDER_ID,dataDto.getSenderAccount().getId())</span>
-<span class="fc" id="L94">						.set(AccountTransaction.ACCOUNT_TRANSACTION.BENEFICIARY_ID,dataDto.getBeneficiaryAccount().getId())</span>
-<span class="fc" id="L95">						.set(AccountTransaction.ACCOUNT_TRANSACTION.CURRENCY_ID,dataDto.getCurrency().getId())</span>
-<span class="fc" id="L96">						.set(AccountTransaction.ACCOUNT_TRANSACTION.STATUS,TransferTransactionStatusEnum.PROCESSED.name())</span>
-<span class="fc" id="L97">						.set(AccountTransaction.ACCOUNT_TRANSACTION.VALUE,ammount)</span>
-<span class="fc" id="L98">						.set(AccountTransaction.ACCOUNT_TRANSACTION.DATE_TIME,DSL.currentTimestamp())</span>
-<span class="fc" id="L99">						.returning()</span>
-<span class="fc" id="L100">						.fetchOne()</span>
+<span class="fc" id="L90">				ret.setTransferInformation(</span>
+<span class="fc" id="L91">						context.insertInto(AccountTransaction.ACCOUNT_TRANSACTION)</span>
+<span class="fc" id="L92">						.set(AccountTransaction.ACCOUNT_TRANSACTION.SENDER_ID,dataDto.getSenderAccount().getId())</span>
+<span class="fc" id="L93">						.set(AccountTransaction.ACCOUNT_TRANSACTION.BENEFICIARY_ID,dataDto.getBeneficiaryAccount().getId())</span>
+<span class="fc" id="L94">						.set(AccountTransaction.ACCOUNT_TRANSACTION.CURRENCY_ID,dataDto.getCurrency().getId())</span>
+<span class="fc" id="L95">						.set(AccountTransaction.ACCOUNT_TRANSACTION.STATUS,TransferTransactionStatusEnum.PROCESSED.name())</span>
+<span class="fc" id="L96">						.set(AccountTransaction.ACCOUNT_TRANSACTION.VALUE,ammount)</span>
+<span class="fc" id="L97">						.set(AccountTransaction.ACCOUNT_TRANSACTION.DATE_TIME,DSL.currentTimestamp())</span>
+<span class="fc" id="L98">						.returning()</span>
+<span class="fc" id="L99">						.fetchOne()</span>
 				);
-<span class="fc" id="L102">				ret.setStatus(TransferTransactionStatusEnum.PROCESSED);</span>
-<span class="fc" id="L103">				beforeCommit();</span>
-<span class="fc" id="L104">			});</span>
+<span class="fc" id="L101">				ret.setStatus(TransferTransactionStatusEnum.PROCESSED);</span>
+<span class="fc" id="L102">				beforeCommit();</span>
+<span class="fc" id="L103">			});</span>
 			
-<span class="fc" id="L106">			return ret;</span>
-<span class="fc" id="L107">		}catch (Exception e) {</span>
-<span class="fc" id="L108">			logger.error(e.getMessage(), e);</span>
+<span class="fc" id="L105">			return ret;</span>
+<span class="fc" id="L106">		}catch (Exception e) {</span>
+<span class="fc" id="L107">			logger.error(e.getMessage(), e);</span>
 			
-<span class="fc" id="L110">			TransferTransactionReturnDto ret = new TransferTransactionReturnDto();</span>
-<span class="fc" id="L111">			ret.setStatus(TransferTransactionStatusEnum.ERROR_PROCESSING);</span>
-<span class="fc" id="L112">			ret.addMessage(Constants.ERROR_PROCESSING_TRASACTION_TRANSFER);</span>
-<span class="fc" id="L113">			return ret;</span>
+<span class="fc" id="L109">			TransferTransactionReturnDto ret = new TransferTransactionReturnDto();</span>
+<span class="fc" id="L110">			ret.setStatus(TransferTransactionStatusEnum.ERROR_PROCESSING);</span>
+<span class="fc" id="L111">			ret.addMessage(Constants.ERROR_PROCESSING_TRASACTION_TRANSFER);</span>
+<span class="fc" id="L112">			return ret;</span>
 		}
 	}
 	
@@ -118,6 +117,6 @@ import com.github.prbpedro.accountmanager.domain.util.Constants;
 	 * Method created to facilitate tests.
 	 */
 	protected void beforeCommit() {
-<span class="fc" id="L121">	}</span>
+<span class="fc" id="L120">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

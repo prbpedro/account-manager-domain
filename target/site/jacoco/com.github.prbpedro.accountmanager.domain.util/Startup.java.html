@@ -2,52 +2,40 @@
 
 import java.sql.SQLException;
 
-import javax.enterprise.inject.se.SeContainer;
-import javax.enterprise.inject.se.SeContainerInitializer;
-
-import com.github.prbpedro.accountmanager.domain.cdi.producer.LoggerProducer;
-import com.github.prbpedro.accountmanager.domain.services.ConfigurationService;
-import com.github.prbpedro.accountmanager.domain.services.DatabaseService;
-import com.github.prbpedro.accountmanager.domain.services.TransactionValidationService;
-import com.github.prbpedro.accountmanager.domain.services.TransferTransactionService;
+import com.github.prbpedro.accountmanager.domain.guice.AccountManagerModule;
+import com.github.prbpedro.accountmanager.domain.services.interfaces.IDatabaseService;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 /**
  * Class responsible for configuring this component CDI and database.
  * 
  * @author Pedro Ribeiro Baptista
  */
-<span class="nc" id="L19">public class Startup {</span>
+<span class="nc" id="L15">public class Startup{</span>
 	
-	private static SeContainer container;
-
+	private static Injector injector;
+	
 	/**
 	 * Method responsible for configuring this component CDI and database.
 	 * 
 	 * @throws SQLException
 	 */
 	public static void configure() throws SQLException {
-<span class="fc bfc" id="L29" title="All 2 branches covered.">		if(container==null) {</span>
-<span class="fc" id="L30">			SeContainerInitializer init = SeContainerInitializer.newInstance();</span>
-			
-<span class="fc" id="L32">			init.addBeanClasses(ConfigurationService.class);</span>
-<span class="fc" id="L33">			init.addBeanClasses(DatabaseService.class);</span>
-<span class="fc" id="L34">			init.addBeanClasses(TransactionValidationService.class);</span>
-<span class="fc" id="L35">			init.addBeanClasses(TransferTransactionService.class);</span>
-<span class="fc" id="L36">			init.addBeanClasses(LoggerProducer.class);</span>
-			
-<span class="fc" id="L38">			container = init.initialize();</span>
-			
-<span class="fc" id="L40">			container.select(DatabaseService.class).get().createDatabase();</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">		if(injector==null) {</span>
+<span class="fc" id="L26">			injector = Guice.createInjector(new AccountManagerModule());</span>
 		}
-<span class="fc" id="L42">	}</span>
+		
+<span class="fc" id="L29">		injector.getInstance(IDatabaseService.class).createDatabase();</span>
+<span class="fc" id="L30">	}</span>
 	
 	/**
-	 * Method responsible for return the CDI container.
+	 * Method responsible for return the Guice injector.
 	 * 
-	 * @returnSeContainer
+	 * @return Injector
 	 */
-	public static SeContainer getContainer() {
-<span class="fc" id="L50">		return container;</span>
+	public static Injector getInjector() {
+<span class="fc" id="L38">		return injector;</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

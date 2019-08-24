@@ -1,5 +1,6 @@
 package tests;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -8,10 +9,13 @@ import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.github.prbpedro.accountmanager.domain.enums.TransferTransactionStatusEnum;
+import com.github.prbpedro.accountmanager.domain.services.DatabaseService;
+import com.github.prbpedro.accountmanager.domain.services.TransactionValidationService;
 import com.github.prbpedro.accountmanager.domain.services.TransferTransactionService;
 import com.github.prbpedro.accountmanager.domain.services.dto.TransferTransactionReturnDto;
 import com.github.prbpedro.accountmanager.domain.tables.AccountBalance;
@@ -25,17 +29,15 @@ import tests.util.mock.ConcurrencyTestTransferTransactionService;
 
 public class TransferTransactionServiceTest {
 
-private static TransferTransactionService transferTransactionService;
-	
+	private static TransferTransactionService transferTransactionService;
 	@BeforeClass
-	public static void configure() throws SQLException
-	{
+	public static void configure() throws SQLException, IOException {
 		Startup.configure();
-		transferTransactionService = Startup.getContainer().select(TransferTransactionService.class).get();
+		transferTransactionService = Startup.getInjector().getInstance(TransferTransactionService.class);
 	}
 	
 	@Test
-	public void testSucessTransfer() throws SQLException
+	public void testSucessTransfer() throws SQLException, IOException
 	{	
 		TransferTransactionReturnDto ret = transferTransactionService.doTransferTransaction("ACCOUNT_1", "ACCOUNT_2", Constants.REVOLUT_BANK_CODE, Constants.USD, BigDecimal.ONE);
 		Assert.assertEquals(TransferTransactionStatusEnum.PROCESSED, ret.getStatus());
@@ -71,9 +73,9 @@ private static TransferTransactionService transferTransactionService;
 	}
 	
 	@Test
-	public void testConcurrentTransferTransactions() throws SQLException, InterruptedException
+	public void testConcurrentTransferTransactions() throws SQLException, InterruptedException, IOException
 	{	
-		TransferTransactionService instance1 = Startup.getContainer().select(TransferTransactionService.class).get();
+		TransferTransactionService instance1 = Startup.getInjector().getInstance(TransferTransactionService.class);
 		TransferTransactionService instance2 = new ConcurrencyTestTransferTransactionService(instance1, 8000);
 		Assert.assertNotEquals(instance2, instance1);
 		
@@ -103,7 +105,7 @@ private static TransferTransactionService transferTransactionService;
 	}
 
 	@Test
-	public void testErrorTransfer() throws SQLException
+	public void testErrorTransfer() throws SQLException, IOException
 	{	
 		TransferTransactionReturnDto ret = transferTransactionService.doTransferTransaction("ACCOUNT_1", "ACCOUNT_9999", Constants.REVOLUT_BANK_CODE, Constants.USD, BigDecimal.ONE);
 		Assert.assertEquals(TransferTransactionStatusEnum.NOT_FOUND, ret.getStatus());

@@ -3,8 +3,6 @@ package com.github.prbpedro.accountmanager.domain.services;
 import java.math.BigDecimal;
 import java.sql.Connection;
 
-import javax.inject.Inject;
-
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.UpdatableRecord;
@@ -20,6 +18,7 @@ import com.github.prbpedro.accountmanager.domain.tables.AccountBalance;
 import com.github.prbpedro.accountmanager.domain.tables.AccountTransaction;
 import com.github.prbpedro.accountmanager.domain.tables.records.AccountBalanceRecord;
 import com.github.prbpedro.accountmanager.domain.util.Constants;
+import com.google.inject.Inject;
 
 /**
  * Transfer transaction service class.

@@ -1,8 +1,7 @@
 package com.github.prbpedro.accountmanager.domain.services;
 
-import javax.inject.Inject;
-
 import com.github.prbpedro.accountmanager.domain.services.interfaces.IDatabaseService;
+import com.google.inject.Inject;
 
 /**
  * Base service class.

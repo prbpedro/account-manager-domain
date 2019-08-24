@@ -1,5 +1,6 @@
 package tests;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 
@@ -8,7 +9,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.github.prbpedro.accountmanager.domain.enums.TransferTransactionStatusEnum;
+import com.github.prbpedro.accountmanager.domain.services.DatabaseService;
 import com.github.prbpedro.accountmanager.domain.services.TransactionValidationService;
+import com.github.prbpedro.accountmanager.domain.services.TransferTransactionService;
 import com.github.prbpedro.accountmanager.domain.services.dto.TransferTransactionalDataDto;
 import com.github.prbpedro.accountmanager.domain.util.Constants;
 import com.github.prbpedro.accountmanager.domain.util.Startup;
@@ -18,9 +21,9 @@ public class TransactionValidationServiceTest {
 	private static TransactionValidationService transactionValidationService;
 
 	@BeforeClass
-	public static void configure() throws SQLException {
+	public static void configure() throws SQLException, IOException {
 		Startup.configure();
-		transactionValidationService = Startup.getContainer().select(TransactionValidationService.class).get();
+		transactionValidationService = Startup.getInjector().getInstance(TransactionValidationService.class);
 	}
 
 	@Test

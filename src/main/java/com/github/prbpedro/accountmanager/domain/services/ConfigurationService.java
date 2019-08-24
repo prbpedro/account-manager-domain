@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import javax.inject.Singleton;
-
 import com.github.prbpedro.accountmanager.domain.services.interfaces.IConfigurationService;
 import com.github.prbpedro.accountmanager.domain.util.Constants;
 
@@ -14,7 +12,6 @@ import com.github.prbpedro.accountmanager.domain.util.Constants;
  * 
  * @author Pedro Ribeiro Baptista
  */
-@Singleton
 public class ConfigurationService implements IConfigurationService{
 	
 	private String javaEnvironment;

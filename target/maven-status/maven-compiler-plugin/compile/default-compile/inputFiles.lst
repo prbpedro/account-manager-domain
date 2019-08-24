@@ -10,6 +10,7 @@ D:\desenvolvimento\workspaces\eclipseJavaEE\account-manager-domain\src\main\java
 D:\desenvolvimento\workspaces\eclipseJavaEE\account-manager-domain\src\main\java\com\github\prbpedro\accountmanager\domain\services\interfaces\IConfigurationService.java
 D:\desenvolvimento\workspaces\eclipseJavaEE\account-manager-domain\src\main\java\com\github\prbpedro\accountmanager\domain\services\DatabaseService.java
 D:\desenvolvimento\workspaces\eclipseJavaEE\account-manager-domain\src\main\java\com\github\prbpedro\accountmanager\domain\services\interfaces\IDatabaseService.java
+D:\desenvolvimento\workspaces\eclipseJavaEE\account-manager-domain\src\main\java\com\github\prbpedro\accountmanager\domain\guice\AccountManagerModule.java
 D:\desenvolvimento\workspaces\eclipseJavaEE\account-manager-domain\src\main\java\com\github\prbpedro\accountmanager\domain\services\TransactionValidationService.java
 D:\desenvolvimento\workspaces\eclipseJavaEE\account-manager-domain\src\main\java\com\github\prbpedro\accountmanager\domain\Keys.java
 D:\desenvolvimento\workspaces\eclipseJavaEE\account-manager-domain\src\main\java\com\github\prbpedro\accountmanager\domain\tables\AccountBalance.java
@@ -24,7 +25,6 @@ D:\desenvolvimento\workspaces\eclipseJavaEE\account-manager-domain\src\main\java
 D:\desenvolvimento\workspaces\eclipseJavaEE\account-manager-domain\src\main\java\com\github\prbpedro\accountmanager\domain\services\TransferTransactionService.java
 D:\desenvolvimento\workspaces\eclipseJavaEE\account-manager-domain\src\main\java\com\github\prbpedro\accountmanager\domain\DefaultCatalog.java
 D:\desenvolvimento\workspaces\eclipseJavaEE\account-manager-domain\src\main\java\com\github\prbpedro\accountmanager\domain\services\ConfigurationService.java
-D:\desenvolvimento\workspaces\eclipseJavaEE\account-manager-domain\src\main\java\com\github\prbpedro\accountmanager\domain\cdi\producer\LoggerProducer.java
 D:\desenvolvimento\workspaces\eclipseJavaEE\account-manager-domain\src\main\java\com\github\prbpedro\accountmanager\domain\AcDatabase.java
 D:\desenvolvimento\workspaces\eclipseJavaEE\account-manager-domain\src\main\java\com\github\prbpedro\accountmanager\domain\tables\records\AccountBalanceRecord.java
 D:\desenvolvimento\workspaces\eclipseJavaEE\account-manager-domain\src\main\java\com\github\prbpedro\accountmanager\domain\util\Startup.java

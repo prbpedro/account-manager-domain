@@ -2,51 +2,39 @@ package com.github.prbpedro.accountmanager.domain.util;
 
 import java.sql.SQLException;
 
-import javax.enterprise.inject.se.SeContainer;
-import javax.enterprise.inject.se.SeContainerInitializer;
-
-import com.github.prbpedro.accountmanager.domain.cdi.producer.LoggerProducer;
-import com.github.prbpedro.accountmanager.domain.services.ConfigurationService;
-import com.github.prbpedro.accountmanager.domain.services.DatabaseService;
-import com.github.prbpedro.accountmanager.domain.services.TransactionValidationService;
-import com.github.prbpedro.accountmanager.domain.services.TransferTransactionService;
+import com.github.prbpedro.accountmanager.domain.guice.AccountManagerModule;
+import com.github.prbpedro.accountmanager.domain.services.interfaces.IDatabaseService;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 /**
  * Class responsible for configuring this component CDI and database.
  * 
  * @author Pedro Ribeiro Baptista
  */
-public class Startup {
+public class Startup{
 	
-	private static SeContainer container;
-
+	private static Injector injector;
+	
 	/**
 	 * Method responsible for configuring this component CDI and database.
 	 * 
 	 * @throws SQLException
 	 */
 	public static void configure() throws SQLException {
-		if(container==null) {
-			SeContainerInitializer init = SeContainerInitializer.newInstance();
-			
-			init.addBeanClasses(ConfigurationService.class);
-			init.addBeanClasses(DatabaseService.class);
-			init.addBeanClasses(TransactionValidationService.class);
-			init.addBeanClasses(TransferTransactionService.class);
-			init.addBeanClasses(LoggerProducer.class);
-			
-			container = init.initialize();
-			
-			container.select(DatabaseService.class).get().createDatabase();
+		if(injector==null) {
+			injector = Guice.createInjector(new AccountManagerModule());
 		}
+		
+		injector.getInstance(IDatabaseService.class).createDatabase();
 	}
 	
 	/**
-	 * Method responsible for return the CDI container.
+	 * Method responsible for return the Guice injector.
 	 * 
-	 * @returnSeContainer
+	 * @return Injector
 	 */
-	public static SeContainer getContainer() {
-		return container;
+	public static Injector getInjector() {
+		return injector;
 	}
 }
