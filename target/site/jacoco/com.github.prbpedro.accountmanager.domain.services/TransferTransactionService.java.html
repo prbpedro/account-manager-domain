@@ -71,19 +71,19 @@ import com.google.inject.Inject;
 <span class="fc bfc" id="L71" title="All 2 branches covered.">				if(dataDto.getBeneficiaryAccountBalance() == null) {</span>
 				
 <span class="fc" id="L73">					dataDto.setBeneficiaryAccountBalance(context.insertInto(</span>
-						AccountBalance.ACCOUNT_BALANCE, 
-						AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, 
-						AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, 
-						AccountBalance.ACCOUNT_BALANCE.VALUE)
+<span class="fc" id="L74">						AccountBalance.ACCOUNT_BALANCE, </span>
+<span class="fc" id="L75">						AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, </span>
+<span class="fc" id="L76">						AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, </span>
+<span class="fc" id="L77">						AccountBalance.ACCOUNT_BALANCE.VALUE)</span>
 <span class="fc" id="L78">					.values(</span>
 <span class="fc" id="L79">							dataDto.getBeneficiaryAccount().getId(),</span>
 <span class="fc" id="L80">							dataDto.getCurrency().getId(),</span>
-							ammount)
+<span class="fc" id="L81">							ammount)</span>
 <span class="fc" id="L82">					.returning()</span>
 <span class="fc" id="L83">					.fetchOne());</span>
-				}else {
+<span class="fc" id="L84">				}else {</span>
 <span class="fc" id="L85">					AccountBalanceRecord beneficiaryAccountBalance = dataDto.getBeneficiaryAccountBalance();</span>
-<span class="fc" id="L86">					beneficiaryAccountBalance.setValue(ammount);</span>
+<span class="fc" id="L86">					beneficiaryAccountBalance.setValue(beneficiaryAccountBalance.getValue().add(ammount));</span>
 <span class="fc" id="L87">					((UpdatableRecord&lt;?&gt;)beneficiaryAccountBalance).store();</span>
 				}
 				

@@ -83,7 +83,7 @@ public class TransferTransactionService extends BaseService implements ITransfer
 					.fetchOne());
 				}else {
 					AccountBalanceRecord beneficiaryAccountBalance = dataDto.getBeneficiaryAccountBalance();
-					beneficiaryAccountBalance.setValue(ammount);
+					beneficiaryAccountBalance.setValue(beneficiaryAccountBalance.getValue().add(ammount));
 					((UpdatableRecord<?>)beneficiaryAccountBalance).store();
 				}
 				
