@@ -34,6 +34,15 @@ import com.google.inject.Inject;
 	 */
 	@Inject
 	private IConfigurationService configurationService;
+	
+	/**
+	 * Setter method for configurationService for tests
+	 * 
+	 * @param configurationService
+	 */
+	public void setConfigurationService(IConfigurationService configurationService) {
+<span class="fc" id="L44">		this.configurationService = configurationService;</span>
+<span class="fc" id="L45">	}</span>
 
 	/**
 	 * Method responsible for creating a Sql connection.
@@ -43,8 +52,8 @@ import com.google.inject.Inject;
 	 */
 	public Connection createConnection() throws SQLException {
 		
-<span class="fc" id="L46">		return DriverManager.getConnection(configurationService.getDatabaseConnectionString(),</span>
-<span class="fc" id="L47">				configurationService.getDatabaseUserName(), configurationService.getDatabaseUserPassword());</span>
+<span class="fc" id="L55">		return DriverManager.getConnection(configurationService.getDatabaseConnectionString(),</span>
+<span class="fc" id="L56">				configurationService.getDatabaseUserName(), configurationService.getDatabaseUserPassword());</span>
 	}
 
 	/**
@@ -54,33 +63,33 @@ import com.google.inject.Inject;
 	 */
 	public void createDatabase() throws SQLException {
 		
-<span class="fc" id="L57">		try (Connection conn = createConnection()) {</span>
+<span class="fc" id="L66">		try (Connection conn = createConnection()) {</span>
 			
-<span class="fc" id="L59">			DSLContext context = DSL.using(conn, SQLDialect.H2);</span>
+<span class="fc" id="L68">			DSLContext context = DSL.using(conn, SQLDialect.H2);</span>
 			
-<span class="pc bpc" id="L61" title="1 of 2 branches missed.">			if(configurationService.isResetDatabase()) {				</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">			if(configurationService.isResetDatabase()) {				</span>
 				String sql;
-<span class="fc bfc" id="L63" title="All 2 branches covered.">				for (Query query : context.ddl(DefaultCatalog.DEFAULT_CATALOG.AC_DATABASE)) {</span>
-<span class="fc" id="L64">					try (Statement statement = conn.createStatement()) {</span>
-<span class="fc" id="L65">						sql = query.getSQL();</span>
-<span class="fc" id="L66">						sql = sql.replace(Constants.CREATE_TABLE, Constants.CREATE_TABLE + Constants.IF_NOT_EXISTS)</span>
-<span class="fc" id="L67">								.replace(Constants.ADD_CONSTRAINT, Constants.ADD_CONSTRAINT + Constants.IF_NOT_EXISTS)</span>
-<span class="fc" id="L68">								.replace(Constants.CREATE_SCHEMA, Constants.CREATE_SCHEMA + Constants.IF_NOT_EXISTS);</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">				for (Query query : context.ddl(DefaultCatalog.DEFAULT_CATALOG.AC_DATABASE)) {</span>
+<span class="fc" id="L73">					try (Statement statement = conn.createStatement()) {</span>
+<span class="fc" id="L74">						sql = query.getSQL();</span>
+<span class="fc" id="L75">						sql = sql.replace(Constants.CREATE_TABLE, Constants.CREATE_TABLE + Constants.IF_NOT_EXISTS)</span>
+<span class="fc" id="L76">								.replace(Constants.ADD_CONSTRAINT, Constants.ADD_CONSTRAINT + Constants.IF_NOT_EXISTS)</span>
+<span class="fc" id="L77">								.replace(Constants.CREATE_SCHEMA, Constants.CREATE_SCHEMA + Constants.IF_NOT_EXISTS);</span>
 						
-<span class="fc" id="L70">						statement.execute(sql);</span>
+<span class="fc" id="L79">						statement.execute(sql);</span>
 					}
-<span class="fc" id="L72">				}</span>
+				}
 			}
 			
-<span class="pc bpc" id="L75" title="3 of 4 branches missed.">			if(configurationService.isCleanDatabase() || configurationService.isResetDatabase()) {</span>
-<span class="fc" id="L76">				cleanDatabase(context);</span>
+<span class="fc bfc" id="L84" title="All 4 branches covered.">			if(configurationService.isCleanDatabase() || configurationService.isResetDatabase()) {</span>
+<span class="fc" id="L85">				cleanDatabase(context);</span>
 			}
 			
-<span class="pc bpc" id="L79" title="1 of 2 branches missed.">			if(configurationService.isExecuteDefaultInserts()) {				</span>
-<span class="fc" id="L80">				insertDefaultValues(context);</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">			if(configurationService.isExecuteDefaultInserts()) {				</span>
+<span class="fc" id="L89">				insertDefaultValues(context);</span>
 			}
 		}
-<span class="fc" id="L83">	}</span>
+<span class="fc" id="L92">	}</span>
 
 	/**
 	 * Method responsible for inserting the DEFAULT values in the database.
@@ -88,23 +97,23 @@ import com.google.inject.Inject;
 	 * @param context
 	 */
 	private void insertDefaultValues(DSLContext context) {
-<span class="fc" id="L91">		Record revolut = context.insertInto(Bank.BANK, Bank.BANK.CODE).values(Constants.REVOLUT_BANK_CODE).returning()</span>
-<span class="fc" id="L92">				.fetchOne();</span>
-
-<span class="fc" id="L94">		Record boringBank = context.insertInto(Bank.BANK, Bank.BANK.CODE).values(Constants.BORINGBANK).returning()</span>
-<span class="fc" id="L95">				.fetchOne();</span>
-
-<span class="fc" id="L97">		Record gbp = context.insertInto(Currency.CURRENCY, Currency.CURRENCY.CODE).values(Constants.GBP).returning()</span>
-<span class="fc" id="L98">				.fetchOne();</span>
-
-<span class="fc" id="L100">		Record usd = context.insertInto(Currency.CURRENCY, Currency.CURRENCY.CODE).values(Constants.USD).returning()</span>
+<span class="fc" id="L100">		Record revolut = context.insertInto(Bank.BANK, Bank.BANK.CODE).values(Constants.REVOLUT_BANK_CODE).returning()</span>
 <span class="fc" id="L101">				.fetchOne();</span>
 
-<span class="fc" id="L103">		Record brl = context.insertInto(Currency.CURRENCY, Currency.CURRENCY.CODE).values(Constants.BRL).returning()</span>
+<span class="fc" id="L103">		Record boringBank = context.insertInto(Bank.BANK, Bank.BANK.CODE).values(Constants.BORINGBANK).returning()</span>
 <span class="fc" id="L104">				.fetchOne();</span>
 
-<span class="fc" id="L106">		insertDefaultAccounts(context, revolut, boringBank, gbp, usd, brl);</span>
-<span class="fc" id="L107">	}</span>
+<span class="fc" id="L106">		Record gbp = context.insertInto(Currency.CURRENCY, Currency.CURRENCY.CODE).values(Constants.GBP).returning()</span>
+<span class="fc" id="L107">				.fetchOne();</span>
+
+<span class="fc" id="L109">		Record usd = context.insertInto(Currency.CURRENCY, Currency.CURRENCY.CODE).values(Constants.USD).returning()</span>
+<span class="fc" id="L110">				.fetchOne();</span>
+
+<span class="fc" id="L112">		Record brl = context.insertInto(Currency.CURRENCY, Currency.CURRENCY.CODE).values(Constants.BRL).returning()</span>
+<span class="fc" id="L113">				.fetchOne();</span>
+
+<span class="fc" id="L115">		insertDefaultAccounts(context, revolut, boringBank, gbp, usd, brl);</span>
+<span class="fc" id="L116">	}</span>
 
 	/**
 	 * Method responsible for inserting the accounts and the relations of these in the database.
@@ -117,47 +126,47 @@ import com.google.inject.Inject;
 	 * @param brl
 	 */
 	private void insertDefaultAccounts(DSLContext context, Record revolut, Record boringBank, Record gbp, Record usd, Record brl) {
-<span class="fc bfc" id="L120" title="All 2 branches covered.">		for (int i = 0; i &lt; 10; i++) {</span>
-<span class="fc" id="L121">			String idAcc = String.format(Constants.ACCOUNT_ID_PATTERN, i);</span>
-<span class="fc" id="L122">			context</span>
-<span class="fc bfc" id="L123" title="All 2 branches covered.">				.insertInto(Account.ACCOUNT, </span>
-					Account.ACCOUNT.ID, 
-					Account.ACCOUNT.BANK_ID,
-					Account.ACCOUNT.ACTIVE)
-<span class="fc" id="L127">				.values(idAcc,</span>
-<span class="fc bfc" id="L128" title="All 2 branches covered.">						i % 2 == 0 ? revolut.get(Bank.BANK.ID) : boringBank.get(Bank.BANK.ID),</span>
-<span class="fc" id="L129">						i &gt; 7 ? false : true)</span>
-<span class="fc" id="L130">				.execute();</span>
+<span class="fc bfc" id="L129" title="All 2 branches covered.">		for (int i = 0; i &lt; 10; i++) {</span>
+<span class="fc" id="L130">			String idAcc = String.format(Constants.ACCOUNT_ID_PATTERN, i);</span>
+<span class="fc" id="L131">			context</span>
+<span class="fc" id="L132">				.insertInto(Account.ACCOUNT, </span>
+<span class="fc" id="L133">					Account.ACCOUNT.ID, </span>
+<span class="fc" id="L134">					Account.ACCOUNT.BANK_ID,</span>
+<span class="fc" id="L135">					Account.ACCOUNT.ACTIVE)</span>
+<span class="fc" id="L136">				.values(idAcc,</span>
+<span class="fc bfc" id="L137" title="All 2 branches covered.">						i % 2 == 0 ? revolut.get(Bank.BANK.ID) : boringBank.get(Bank.BANK.ID),</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">						i &gt; 7 ? false : true)</span>
+<span class="fc" id="L139">				.execute();</span>
 			
-<span class="fc bfc" id="L132" title="All 2 branches covered.">			if (i % 2 == 0) {</span>
-<span class="fc" id="L133">				context</span>
-<span class="fc" id="L134">					.insertInto(AccountBalance.ACCOUNT_BALANCE, </span>
-							AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, 
-						AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, 
-						AccountBalance.ACCOUNT_BALANCE.VALUE)
-<span class="fc" id="L138">					.values(idAcc, gbp.get(Currency.CURRENCY.ID), BigDecimal.valueOf(i*1000))</span>
-<span class="fc" id="L139">					.execute();</span>
-			} else {
-<span class="fc" id="L141">				context</span>
-<span class="fc" id="L142">				.insertInto(AccountBalance.ACCOUNT_BALANCE, </span>
-						AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, 
-					AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, 
-					AccountBalance.ACCOUNT_BALANCE.VALUE)
-<span class="fc" id="L146">				.values(idAcc,usd.get(Currency.CURRENCY.ID), BigDecimal.valueOf(i*100))</span>
-<span class="fc" id="L147">				.execute();</span>
+<span class="fc bfc" id="L141" title="All 2 branches covered.">			if (i % 2 == 0) {</span>
+<span class="fc" id="L142">				context</span>
+<span class="fc" id="L143">					.insertInto(AccountBalance.ACCOUNT_BALANCE, </span>
+<span class="fc" id="L144">							AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, </span>
+<span class="fc" id="L145">						AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, </span>
+<span class="fc" id="L146">						AccountBalance.ACCOUNT_BALANCE.VALUE)</span>
+<span class="fc" id="L147">					.values(idAcc, gbp.get(Currency.CURRENCY.ID), BigDecimal.valueOf(i*1000))</span>
+<span class="fc" id="L148">					.execute();</span>
+<span class="fc" id="L149">			} else {</span>
+<span class="fc" id="L150">				context</span>
+<span class="fc" id="L151">				.insertInto(AccountBalance.ACCOUNT_BALANCE, </span>
+<span class="fc" id="L152">						AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, </span>
+<span class="fc" id="L153">					AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, </span>
+<span class="fc" id="L154">					AccountBalance.ACCOUNT_BALANCE.VALUE)</span>
+<span class="fc" id="L155">				.values(idAcc,usd.get(Currency.CURRENCY.ID), BigDecimal.valueOf(i*100))</span>
+<span class="fc" id="L156">				.execute();</span>
 			}
 
-<span class="fc bfc" id="L150" title="All 2 branches covered.">			if (i % 3 == 0) {</span>
-<span class="fc" id="L151">				context</span>
-<span class="fc" id="L152">				.insertInto(AccountBalance.ACCOUNT_BALANCE, </span>
-						AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, 
-					AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, 
-					AccountBalance.ACCOUNT_BALANCE.VALUE)
-<span class="fc" id="L156">				.values(idAcc,brl.get(Currency.CURRENCY.ID), BigDecimal.valueOf(i*1000000))</span>
-<span class="fc" id="L157">				.execute();</span>
+<span class="fc bfc" id="L159" title="All 2 branches covered.">			if (i % 3 == 0) {</span>
+<span class="fc" id="L160">				context</span>
+<span class="fc" id="L161">				.insertInto(AccountBalance.ACCOUNT_BALANCE, </span>
+<span class="fc" id="L162">						AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, </span>
+<span class="fc" id="L163">					AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, </span>
+<span class="fc" id="L164">					AccountBalance.ACCOUNT_BALANCE.VALUE)</span>
+<span class="fc" id="L165">				.values(idAcc,brl.get(Currency.CURRENCY.ID), BigDecimal.valueOf(i*1000000))</span>
+<span class="fc" id="L166">				.execute();</span>
 			}
 		}
-<span class="fc" id="L160">	}</span>
+<span class="fc" id="L169">	}</span>
 
 	/**
 	 * Method responsible for cleaning the database.
@@ -165,12 +174,12 @@ import com.google.inject.Inject;
 	 * @param context
 	 */
 	private void cleanDatabase(DSLContext context) {
-<span class="fc" id="L168">		context.deleteFrom(AccountTransaction.ACCOUNT_TRANSACTION).execute();</span>
-<span class="fc" id="L169">		context.deleteFrom(AccountBalance.ACCOUNT_BALANCE).execute();</span>
-<span class="fc" id="L170">		context.deleteFrom(Account.ACCOUNT).execute();</span>
-<span class="fc" id="L171">		context.deleteFrom(Bank.BANK).execute();</span>
-<span class="fc" id="L172">		context.deleteFrom(Currency.CURRENCY).execute();</span>
-<span class="fc" id="L173">	}</span>
+<span class="fc" id="L177">		context.deleteFrom(AccountTransaction.ACCOUNT_TRANSACTION).execute();</span>
+<span class="fc" id="L178">		context.deleteFrom(AccountBalance.ACCOUNT_BALANCE).execute();</span>
+<span class="fc" id="L179">		context.deleteFrom(Account.ACCOUNT).execute();</span>
+<span class="fc" id="L180">		context.deleteFrom(Bank.BANK).execute();</span>
+<span class="fc" id="L181">		context.deleteFrom(Currency.CURRENCY).execute();</span>
+<span class="fc" id="L182">	}</span>
 
 	/**
 	 * Method responsible for return the Database data
@@ -179,15 +188,15 @@ import com.google.inject.Inject;
 	 * @throws SQLException 
 	 */
 	public String getDatabaseData() throws SQLException {
-<span class="fc" id="L182">		try (Connection conn = createConnection()) {</span>
-<span class="fc" id="L183">			DSLContext context = DSL.using(conn, SQLDialect.H2);</span>
-<span class="fc" id="L184">			StringBuilder sb = new StringBuilder();</span>
-<span class="fc" id="L185">			sb.append(context.selectFrom(Bank.BANK).fetch().toString() + Constants.BREAK);</span>
-<span class="fc" id="L186">			sb.append(context.selectFrom(Currency.CURRENCY).fetch().toString() + Constants.BREAK);</span>
-<span class="fc" id="L187">			sb.append(context.selectFrom(Account.ACCOUNT).fetch().toString() + Constants.BREAK);</span>
-<span class="fc" id="L188">			sb.append(context.selectFrom(AccountBalance.ACCOUNT_BALANCE).fetch().toString() + Constants.BREAK);</span>
-<span class="fc" id="L189">			sb.append(context.selectFrom(AccountTransaction.ACCOUNT_TRANSACTION).fetch().toString() + Constants.BREAK);</span>
-<span class="fc" id="L190">			return sb.toString();</span>
+<span class="fc" id="L191">		try (Connection conn = createConnection()) {</span>
+<span class="fc" id="L192">			DSLContext context = DSL.using(conn, SQLDialect.H2);</span>
+<span class="fc" id="L193">			StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L194">			sb.append(context.selectFrom(Bank.BANK).fetch().toString() + Constants.BREAK);</span>
+<span class="fc" id="L195">			sb.append(context.selectFrom(Currency.CURRENCY).fetch().toString() + Constants.BREAK);</span>
+<span class="fc" id="L196">			sb.append(context.selectFrom(Account.ACCOUNT).fetch().toString() + Constants.BREAK);</span>
+<span class="fc" id="L197">			sb.append(context.selectFrom(AccountBalance.ACCOUNT_BALANCE).fetch().toString() + Constants.BREAK);</span>
+<span class="fc" id="L198">			sb.append(context.selectFrom(AccountTransaction.ACCOUNT_TRANSACTION).fetch().toString() + Constants.BREAK);</span>
+<span class="fc" id="L199">			return sb.toString();</span>
 		}
 	}
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fileset-config file-format-version="1.2.0" simple-config="false" sync-formatter="false">
+  <fileset name="all" enabled="true" check-config-name="Google Checks" local="false">
+    <file-match-pattern match-pattern=".com/github/prbpedro/accountmanager/.+java" include-pattern="true"/>
+    <file-match-pattern match-pattern=".com/github/prbpedro/accountmanager/domain/tables/" include-pattern="false"/>
+    <file-match-pattern match-pattern=".com/github/prbpedro/accountmanager/domain/\w+.java" include-pattern="false"/>
+  </fileset>
+</fileset-config>

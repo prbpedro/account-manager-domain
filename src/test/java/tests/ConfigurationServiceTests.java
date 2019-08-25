@@ -46,6 +46,7 @@ public class ConfigurationServiceTests {
 		
 		Properties prop = new Properties();
 		configurationService.readPropFile(prop, String.format(Constants.FILE_PROP_NAME_PATTERN, "TESTS"));
+		configurationService.getJavaEnvironment();
 		try {
 			configurationService.readPropFile(prop, "ERROR");
 			Assert.assertTrue(false);

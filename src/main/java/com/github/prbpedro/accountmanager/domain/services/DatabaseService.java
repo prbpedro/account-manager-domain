@@ -34,6 +34,15 @@ public class DatabaseService implements IDatabaseService{
 	 */
 	@Inject
 	private IConfigurationService configurationService;
+	
+	/**
+	 * Setter method for configurationService for tests
+	 * 
+	 * @param configurationService
+	 */
+	public void setConfigurationService(IConfigurationService configurationService) {
+		this.configurationService = configurationService;
+	}
 
 	/**
 	 * Method responsible for creating a Sql connection.

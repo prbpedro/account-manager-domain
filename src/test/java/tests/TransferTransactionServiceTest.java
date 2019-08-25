@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.jooq.DSLContext;
+import org.jooq.Result;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 import org.junit.Assert;
@@ -38,34 +39,39 @@ public class TransferTransactionServiceTest {
 	{	
 		TransferTransactionReturnDto ret = transferTransactionService.doTransferTransaction("ACCOUNT_1", "ACCOUNT_2", Constants.REVOLUT_BANK_CODE, Constants.USD, BigDecimal.ONE);
 		Assert.assertEquals(TransferTransactionStatusEnum.PROCESSED, ret.getStatus());
+		ret.getTransferInformation();
+		
+		ret = transferTransactionService.doTransferTransaction("ACCOUNT_1", "ACCOUNT_2", Constants.REVOLUT_BANK_CODE, Constants.USD, BigDecimal.ONE);
+		Assert.assertEquals(TransferTransactionStatusEnum.PROCESSED, ret.getStatus());
 		
 		try (Connection conn = transferTransactionService.databaseService.createConnection()){
 			
 			DSLContext context = DSL.using(conn, SQLDialect.H2);
 			
-			AccountTransactionRecord accountTransactionRecord = context.selectFrom(AccountTransaction.ACCOUNT_TRANSACTION)
+			Result<AccountTransactionRecord> accountTransactionRecords = context.selectFrom(AccountTransaction.ACCOUNT_TRANSACTION)
 			.where(
 					AccountTransaction.ACCOUNT_TRANSACTION.SENDER_ID.eq("ACCOUNT_1")
 					.and(AccountTransaction.ACCOUNT_TRANSACTION.BENEFICIARY_ID.eq("ACCOUNT_2")
-			)).fetchOne();
+			)).fetch();
 			
-			Assert.assertEquals((Double)BigDecimal.ONE.doubleValue(), (Double)accountTransactionRecord.getValue().doubleValue());
+			Assert.assertEquals((Double)BigDecimal.ONE.doubleValue(), (Double)accountTransactionRecords.get(0).getValue().doubleValue());
+			Assert.assertEquals((Double)BigDecimal.ONE.doubleValue(), (Double)accountTransactionRecords.get(1).getValue().doubleValue());
 			
 			AccountBalanceRecord senderAccountbalenceRecord = context.selectFrom(AccountBalance.ACCOUNT_BALANCE)
 			.where(
 					AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID.eq("ACCOUNT_1")
-					.and(AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID.eq(accountTransactionRecord.getCurrencyId())
+					.and(AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID.eq(accountTransactionRecords.get(0).getCurrencyId())
 			)).fetchOne();
 			
-			Assert.assertEquals((Double)BigDecimal.valueOf(99).doubleValue(), (Double)senderAccountbalenceRecord.getValue().doubleValue());
+			Assert.assertEquals((Double)BigDecimal.valueOf(98).doubleValue(), (Double)senderAccountbalenceRecord.getValue().doubleValue());
 			
 			AccountBalanceRecord beneficiaryAccountbalenceRecord = context.selectFrom(AccountBalance.ACCOUNT_BALANCE)
 			.where(
 					AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID.eq("ACCOUNT_2")
-					.and(AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID.eq(accountTransactionRecord.getCurrencyId())
+					.and(AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID.eq(accountTransactionRecords.get(0).getCurrencyId())
 			)).fetchOne();
 			
-			Assert.assertEquals((Double)BigDecimal.valueOf(1).doubleValue(), (Double)beneficiaryAccountbalenceRecord.getValue().doubleValue());
+			Assert.assertEquals((Double)BigDecimal.valueOf(2).doubleValue(), (Double)beneficiaryAccountbalenceRecord.getValue().doubleValue());
 		}
 	}
 	

@@ -34,6 +34,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.1.2</version>
 				<configuration>
 					<archive>
 						<manifest>
@@ -43,8 +44,9 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-install-plugin</artifactId>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-install-plugin</artifactId>
+			    <version>3.0.0-M1</version>
 				<configuration>
 					<generatePom>true</generatePom>
 				</configuration>
