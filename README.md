@@ -15,7 +15,7 @@ Used technologies:
 
 ## Project desciption
 
-This project was built to demonstrate the use of the technologies described above by providing the <b>TransferTransactionService</b> service class capable of making a transfer transaction in a banking system.
+This is a JAVA Eclipse project built to demonstrate the use of the technologies described above by providing the <b>TransferTransactionService</b> service class capable of making a transfer transaction in a banking system.
 
 The following database tables were defined:
   * Bank
