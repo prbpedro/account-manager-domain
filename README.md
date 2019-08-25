@@ -2,7 +2,18 @@
 
 This project was built to demonstrate the use of the technologies described below by providing the <b>TransferTransactionService</b> service class capable of making a transfer transaction in a banking system.
 
-For this purpose, the following database tables were defined:
+Used technologies:
+* JAVA JDK 1.8
+* Google Guice (Dependency injection framework)
+* Database Access Framework (JOOQ)
+* H2 Database
+* SLF4J (Log framework)
+* Maven (Compilation and automation tool)
+* JUnit (Test framework)
+* jacoco-maven-plugin (Test code coverege amven plugin)
+* Github repository
+
+The following database tables were defined:
   * Bank
     * ID
     * CODE
@@ -42,17 +53,6 @@ The <b>TransactionValidationService</b> service class is responsible for validat
 * The sender's account must have funds to do the transfer
 * The currency must exist
 * Transferred value must be positive and scaled to 19 and precision to 2. (Database limitations)
-
-This is an Eclipse JAVA project that uses the following technologies:
-* JAVA JDK 1.8
-* Google Guice (Dependency injection framework)
-* Database Access Framework (JOOQ)
-* H2 Database
-* SLF4J (Log framework)
-* Maven (Compilation and automation tool)
-* JUnit (Test framework)
-* jacoco-maven-plugin (Test code coverege amven plugin)
-* Github repository
 
 H2 Database in memory is used in the unit tests.
 The unit testing code coverage report is available in the $PROJECT_FOLDER/target/site/jacoco/index.html file generated through the Maven plugin jacoco-maven-plugin.
