@@ -160,7 +160,7 @@ import com.github.prbpedro.accountmanager.domain.util.Constants;
 <span class="fc bfc" id="L160" title="All 2 branches covered.">				ret.getSenderAcountBalance().getValue().compareTo(ammount) &lt; 1 ) {</span>
 <span class="fc" id="L161">			ret.setReturnDto(new TransferTransactionReturnDto());</span>
 <span class="fc" id="L162">			ret.getReturnDto().setStatus(TransferTransactionStatusEnum.NOT_PROCESSED);</span>
-<span class="fc" id="L163">			ret.getReturnDto().addMessage(String.format(Constants.NO_FOUNDS, ret.getCurrency().getCode()));</span>
+<span class="fc" id="L163">			ret.getReturnDto().addMessage(String.format(Constants.NO_FUNDS, ret.getCurrency().getCode()));</span>
 <span class="fc" id="L164">			return false;</span>
 		}
 		
