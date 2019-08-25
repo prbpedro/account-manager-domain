@@ -13,6 +13,7 @@ Used technologies:
 * jacoco-maven-plugin (Test code coverege amven plugin)
 * Github repository
 
+
 The following database tables were defined:
   * Bank
     * ID
