@@ -124,9 +124,9 @@ public class Constants {
 	public static final String NOT_PROCESSED_NOT_EXISTS = "%s %s doesn't exists.";
 	
 	/**
-	 * Constant NO_FOUNDS
+	 * Constant NO_FUNDS
 	 */
-	public static final String NO_FOUNDS = "Sender has no founds (%s).";
+	public static final String NO_FUNDS = "Sender has no funds (%s).";
 	
 	/**
 	 * Constant REVOLUT_BANK_CODE

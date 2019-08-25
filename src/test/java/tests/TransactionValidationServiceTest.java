@@ -45,7 +45,7 @@ public class TransactionValidationServiceTest {
 		TransferTransactionalDataDto ret = transactionValidationService.validateTransfer("ACCOUNT_1", "ACCOUNT_9999",
 				"XXX", Constants.BRL, BigDecimal.ONE, null);
 		Assert.assertEquals(TransferTransactionStatusEnum.NOT_PROCESSED, ret.getReturnDto().getStatus());
-		Assert.assertEquals("Sender has no founds (BRL).", ret.getReturnDto().getMessages().get(0));
+		Assert.assertEquals("Sender has no funds (BRL).", ret.getReturnDto().getMessages().get(0));
 	}
 
 	@Test
@@ -53,7 +53,7 @@ public class TransactionValidationServiceTest {
 		TransferTransactionalDataDto ret = transactionValidationService.validateTransfer("ACCOUNT_1", "ACCOUNT_9999",
 				"XXX", Constants.USD, BigDecimal.valueOf(99999999999999.0), null);
 		Assert.assertEquals(TransferTransactionStatusEnum.NOT_PROCESSED, ret.getReturnDto().getStatus());
-		Assert.assertEquals("Sender has no founds (USD).", ret.getReturnDto().getMessages().get(0));
+		Assert.assertEquals("Sender has no funds (USD).", ret.getReturnDto().getMessages().get(0));
 	}
 
 	@Test

@@ -160,7 +160,7 @@ public class TransactionValidationService extends BaseService implements ITransa
 				ret.getSenderAcountBalance().getValue().compareTo(ammount) < 1 ) {
 			ret.setReturnDto(new TransferTransactionReturnDto());
 			ret.getReturnDto().setStatus(TransferTransactionStatusEnum.NOT_PROCESSED);
-			ret.getReturnDto().addMessage(String.format(Constants.NO_FOUNDS, ret.getCurrency().getCode()));
+			ret.getReturnDto().addMessage(String.format(Constants.NO_FUNDS, ret.getCurrency().getCode()));
 			return false;
 		}
 		
