@@ -1,4 +1,5 @@
 # account-manager-domain
+![Travis](https://api.travis-ci.org/prbpedro/account-manager-domain.svg?branch=master)
 
 ## Technologies 
 
