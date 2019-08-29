@@ -107,6 +107,14 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+			    <groupId>org.eluder.coveralls</groupId>
+			    <artifactId>coveralls-maven-plugin</artifactId>
+			    <version>4.3.0</version>
+			    <configuration>
+				<repoToken>JEakt2T3KVw6BwXar0oqmvFB2TMQeIOT5</repoToken>
+			    </configuration>
+			</plugin>
 			<!-- plugin>
 				<groupId>org.jooq</groupId>
 				<artifactId>jooq-codegen-maven</artifactId>
