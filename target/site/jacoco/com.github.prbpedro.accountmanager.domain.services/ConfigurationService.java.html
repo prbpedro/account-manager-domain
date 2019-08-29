@@ -33,16 +33,16 @@ public class ConfigurationService implements IConfigurationService{
 	 * 
 	 * @throws IOException
 	 */
-<span class="fc" id="L36">	public ConfigurationService() throws IOException</span>
-	{
+	public ConfigurationService() throws IOException
+<span class="fc" id="L37">	{</span>
 <span class="fc" id="L38">		Properties prop = new Properties();</span>
 <span class="fc" id="L39">		readPropFile(prop, String.format(Constants.FILE_PROP_NAME_PATTERN, Constants.EMPTY));</span>
 		
 <span class="fc" id="L41">		String value = System.getenv(Constants.ENV_JAVA_ENVIRONMENT);</span>
-<span class="fc bfc" id="L42" title="All 2 branches covered.">		if(value != null) {</span>
-<span class="fc" id="L43">			javaEnvironment = value;</span>
-<span class="fc" id="L44">			readPropFile(prop, String.format(Constants.FILE_PROP_NAME_PATTERN, javaEnvironment));</span>
-<span class="fc" id="L45">		}else {</span>
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">		if(value != null) {</span>
+<span class="nc" id="L43">			javaEnvironment = value;</span>
+<span class="nc" id="L44">			readPropFile(prop, String.format(Constants.FILE_PROP_NAME_PATTERN, javaEnvironment));</span>
+		}else {
 <span class="fc" id="L46">			javaEnvironment = &quot;&quot;;</span>
 		}
 		
@@ -73,7 +73,7 @@ public class ConfigurationService implements IConfigurationService{
 	 * @return String
 	 */
 	public String getJavaEnvironment() {
-<span class="fc" id="L76">		return javaEnvironment;</span>
+<span class="nc" id="L76">		return javaEnvironment;</span>
 	}
 
 	/**

@@ -1,0 +1,11 @@
+tests\util\EnvironmentUtil.class
+tests\TransferTransactionServiceTest$1.class
+tests\ConfigurationServiceTests.class
+tests\TransactionValidationServiceTest.class
+tests\TransferTransactionServiceTest$2.class
+tests\DatabaseServiceTest.class
+tests\TransferTransactionServiceTest.class
+tests\util\mock\ConfigurationServiceMock.class
+tests\util\mock\ConfigurationServiceMock2.class
+tests\util\mock\ConcurrencyTestTransferTransactionService.class
+tests\util\mock\ConfigurationServiceMock3.class

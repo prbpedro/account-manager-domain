@@ -11,8 +11,6 @@ import com.github.prbpedro.accountmanager.domain.services.ConfigurationService;
 import com.github.prbpedro.accountmanager.domain.util.Constants;
 import com.github.prbpedro.accountmanager.domain.util.Startup;
 
-import tests.util.EnvironmentUtil;
-
 public class ConfigurationServiceTests {
 		
 	@Test

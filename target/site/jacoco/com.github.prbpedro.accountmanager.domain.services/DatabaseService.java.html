@@ -78,7 +78,7 @@ import com.google.inject.Inject;
 						
 <span class="fc" id="L79">						statement.execute(sql);</span>
 					}
-				}
+<span class="fc" id="L81">				}</span>
 			}
 			
 <span class="fc bfc" id="L84" title="All 4 branches covered.">			if(configurationService.isCleanDatabase() || configurationService.isResetDatabase()) {</span>
@@ -129,29 +129,29 @@ import com.google.inject.Inject;
 <span class="fc bfc" id="L129" title="All 2 branches covered.">		for (int i = 0; i &lt; 10; i++) {</span>
 <span class="fc" id="L130">			String idAcc = String.format(Constants.ACCOUNT_ID_PATTERN, i);</span>
 <span class="fc" id="L131">			context</span>
-<span class="fc" id="L132">				.insertInto(Account.ACCOUNT, </span>
-<span class="fc" id="L133">					Account.ACCOUNT.ID, </span>
-<span class="fc" id="L134">					Account.ACCOUNT.BANK_ID,</span>
-<span class="fc" id="L135">					Account.ACCOUNT.ACTIVE)</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">				.insertInto(Account.ACCOUNT, </span>
+					Account.ACCOUNT.ID, 
+					Account.ACCOUNT.BANK_ID,
+					Account.ACCOUNT.ACTIVE)
 <span class="fc" id="L136">				.values(idAcc,</span>
 <span class="fc bfc" id="L137" title="All 2 branches covered.">						i % 2 == 0 ? revolut.get(Bank.BANK.ID) : boringBank.get(Bank.BANK.ID),</span>
-<span class="fc bfc" id="L138" title="All 2 branches covered.">						i &gt; 7 ? false : true)</span>
+<span class="fc" id="L138">						i &gt; 7 ? false : true)</span>
 <span class="fc" id="L139">				.execute();</span>
 			
 <span class="fc bfc" id="L141" title="All 2 branches covered.">			if (i % 2 == 0) {</span>
 <span class="fc" id="L142">				context</span>
 <span class="fc" id="L143">					.insertInto(AccountBalance.ACCOUNT_BALANCE, </span>
-<span class="fc" id="L144">							AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, </span>
-<span class="fc" id="L145">						AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, </span>
-<span class="fc" id="L146">						AccountBalance.ACCOUNT_BALANCE.VALUE)</span>
+							AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, 
+						AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, 
+						AccountBalance.ACCOUNT_BALANCE.VALUE)
 <span class="fc" id="L147">					.values(idAcc, gbp.get(Currency.CURRENCY.ID), BigDecimal.valueOf(i*1000))</span>
 <span class="fc" id="L148">					.execute();</span>
-<span class="fc" id="L149">			} else {</span>
+			} else {
 <span class="fc" id="L150">				context</span>
 <span class="fc" id="L151">				.insertInto(AccountBalance.ACCOUNT_BALANCE, </span>
-<span class="fc" id="L152">						AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, </span>
-<span class="fc" id="L153">					AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, </span>
-<span class="fc" id="L154">					AccountBalance.ACCOUNT_BALANCE.VALUE)</span>
+						AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, 
+					AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, 
+					AccountBalance.ACCOUNT_BALANCE.VALUE)
 <span class="fc" id="L155">				.values(idAcc,usd.get(Currency.CURRENCY.ID), BigDecimal.valueOf(i*100))</span>
 <span class="fc" id="L156">				.execute();</span>
 			}
@@ -159,9 +159,9 @@ import com.google.inject.Inject;
 <span class="fc bfc" id="L159" title="All 2 branches covered.">			if (i % 3 == 0) {</span>
 <span class="fc" id="L160">				context</span>
 <span class="fc" id="L161">				.insertInto(AccountBalance.ACCOUNT_BALANCE, </span>
-<span class="fc" id="L162">						AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, </span>
-<span class="fc" id="L163">					AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, </span>
-<span class="fc" id="L164">					AccountBalance.ACCOUNT_BALANCE.VALUE)</span>
+						AccountBalance.ACCOUNT_BALANCE.ACCOUNT_ID, 
+					AccountBalance.ACCOUNT_BALANCE.CURRENCY_ID, 
+					AccountBalance.ACCOUNT_BALANCE.VALUE)
 <span class="fc" id="L165">				.values(idAcc,brl.get(Currency.CURRENCY.ID), BigDecimal.valueOf(i*1000000))</span>
 <span class="fc" id="L166">				.execute();</span>
 			}

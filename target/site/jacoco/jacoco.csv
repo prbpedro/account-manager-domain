@@ -1,8 +1,8 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-AccountManager,com.github.prbpedro.accountmanager.domain.enums,TransferTransactionStatusEnum,0,44,0,0,0,9,0,1,0,1
-AccountManager,com.github.prbpedro.accountmanager.domain.services,TransferTransactionService,0,163,0,4,0,48,0,6,0,4
-AccountManager,com.github.prbpedro.accountmanager.domain.services,ConfigurationService,0,113,0,2,0,26,0,10,0,9
-AccountManager,com.github.prbpedro.accountmanager.domain.services,DatabaseService,0,400,0,20,0,83,0,18,0,8
+AccountManager,com.github.prbpedro.accountmanager.domain.enums,TransferTransactionStatusEnum,0,44,0,0,0,5,0,1,0,1
+AccountManager,com.github.prbpedro.accountmanager.domain.services,TransferTransactionService,0,165,0,4,0,42,0,6,0,4
+AccountManager,com.github.prbpedro.accountmanager.domain.services,ConfigurationService,19,92,1,1,3,22,2,8,1,8
+AccountManager,com.github.prbpedro.accountmanager.domain.services,DatabaseService,0,393,0,20,0,71,0,18,0,8
 AccountManager,com.github.prbpedro.accountmanager.domain.services,TransactionValidationService,0,369,0,28,0,74,0,27,0,13
 AccountManager,com.github.prbpedro.accountmanager.domain.services,BaseService,0,3,0,0,0,1,0,1,0,1
 AccountManager,com.github.prbpedro.accountmanager.domain.services.dto,TransferTransactionalDataDto,0,52,0,0,0,22,0,15,0,15
