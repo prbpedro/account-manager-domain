@@ -1,6 +1,4 @@
 language: java
-script:
- - mvn build
 after_success:
   - mvn clean test jacoco:report coveralls:report
 jdk:
