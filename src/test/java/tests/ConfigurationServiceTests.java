@@ -36,8 +36,6 @@ public class ConfigurationServiceTests {
 	@Test
 	public void configurationServiceEnvironmentTest() throws IOException, SQLException
 	{	
-		EnvironmentUtil.setNewEnvironment(Constants.ENV_JAVA_ENVIRONMENT, "TESTS");
-		
 		Startup.configure();
 		
 		ConfigurationService configurationService = Startup.getInjector().getInstance(ConfigurationService.class);
