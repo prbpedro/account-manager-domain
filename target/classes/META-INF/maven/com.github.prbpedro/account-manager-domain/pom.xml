@@ -93,6 +93,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.1.1</version>
 				<configuration>
 					<additionalparam>-Xdoclint:none</additionalparam>
 					<additionalOptions>-Xdoclint:none</additionalOptions>
@@ -106,6 +107,14 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+			    <groupId>org.eluder.coveralls</groupId>
+			    <artifactId>coveralls-maven-plugin</artifactId>
+			    <version>4.3.0</version>
+			    <configuration>
+				<repoToken>JEakt2T3KVw6BwXar0oqmvFB2TMQeIOT5</repoToken>
+			    </configuration>
 			</plugin>
 			<!-- plugin>
 				<groupId>org.jooq</groupId>
@@ -194,5 +203,11 @@
 		    <artifactId>slf4j-simple</artifactId>
 		    <version>1.7.28</version>  
 		</dependency>
+		<dependency>
+		    <groupId>org.glassfish</groupId>
+		    <artifactId>javax.annotation</artifactId>
+		    <version>3.1.1</version>
+		</dependency>
+
 	</dependencies>
 </project>

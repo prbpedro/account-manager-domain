@@ -18,8 +18,6 @@ public class ConfigurationServiceTests {
 	@Test
 	public void configurationServiceTest() throws IOException, SQLException
 	{	
-		EnvironmentUtil.cleanEnvironment();
-		
 		Startup.configure();
 		
 		ConfigurationService configurationService = Startup.getInjector().getInstance(ConfigurationService.class);
@@ -54,6 +52,5 @@ public class ConfigurationServiceTests {
 		catch (Exception e) {
 			Assert.assertTrue(true);
 		}
-		EnvironmentUtil.cleanEnvironment();
 	}
 }
