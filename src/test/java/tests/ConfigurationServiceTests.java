@@ -20,11 +20,10 @@ public class ConfigurationServiceTests {
 	{	
 		Startup.configure();
 		
-		ConfigurationService configurationService = Startup.getInjector().getInstance(ConfigurationService.class);
-		
-		Properties prop = new Properties();
-		configurationService.readPropFile(prop, String.format(Constants.FILE_PROP_NAME_PATTERN, "TESTS"));
 		try {
+			ConfigurationService configurationService = Startup.getInjector().getInstance(ConfigurationService.class);
+			Properties prop = new Properties();
+			configurationService.readPropFile(prop, String.format(Constants.FILE_PROP_NAME_PATTERN, "TESTS"));
 			configurationService.readPropFile(prop, "ERROR");
 			Assert.assertTrue(false);
 		}
