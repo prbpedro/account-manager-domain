@@ -40,10 +40,10 @@ public class ConfigurationServiceTests {
 		
 		ConfigurationService configurationService = Startup.getInjector().getInstance(ConfigurationService.class);
 		
-		Properties prop = new Properties();
-		configurationService.readPropFile(prop, String.format(Constants.FILE_PROP_NAME_PATTERN, "TESTS"));
-		configurationService.getJavaEnvironment();
 		try {
+			Properties prop = new Properties();
+			configurationService.readPropFile(prop, String.format(Constants.FILE_PROP_NAME_PATTERN, "TESTS"));
+			configurationService.getJavaEnvironment();
 			configurationService.readPropFile(prop, "ERROR");
 			Assert.assertTrue(false);
 		}
