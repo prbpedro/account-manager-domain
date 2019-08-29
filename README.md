@@ -12,7 +12,7 @@ Used technologies:
 * SLF4J (Log framework)
 * Maven (Compilation and automation tool)
 * JUnit (Test framework)
-* jacoco-maven-plugin (Test code coverege amven plugin)
+* jacoco-maven-plugin (Test code coverege maven plugin)
 * Github repository
 
 ## Project desciption
