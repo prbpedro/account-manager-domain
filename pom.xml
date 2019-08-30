@@ -17,6 +17,13 @@
 	<name>AccountManager</name>
 	<description>Responsable for controlling the account's and transfers persistence</description>
 
+	<distributionManagement>
+	    <repository>
+	        <id>internal</id>
+	        <url>file://${project.build.directory}/mvn-repo</url>
+	    </repository>
+	</distributionManagement>
+
 	<build>
 		<plugins>
 			<plugin>
