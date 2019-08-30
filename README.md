@@ -1,5 +1,5 @@
 # account-manager-domain
-![https://api.travis-ci.org/prbpedro/account-manager-domain](https://api.travis-ci.org/prbpedro/account-manager-domain.svg?branch=master)
+![https://api.travis-ci.org/prbpedro/account-manager-domain.svg?branch=master](https://api.travis-ci.org/prbpedro/account-manager-domain)
 [![Coverage Status](https://coveralls.io/repos/github/prbpedro/account-manager-domain/badge.svg)](https://coveralls.io/github/prbpedro/account-manager-domain)
 
 ## Technologies 
