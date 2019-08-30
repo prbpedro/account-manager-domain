@@ -14,6 +14,8 @@ Used technologies:
 * JUnit (Test framework)
 * jacoco-maven-plugin (Test code coverege maven plugin)
 * Github repository
+* Travis CL (Continuous integration service )
+* Coverall (Continuous code coverage)
 
 ## Project desciption
 
