@@ -1,6 +1,7 @@
 # account-manager-domain
 [![Travis](https://api.travis-ci.org/prbpedro/account-manager-domain.svg?branch=master)](https://travis-ci.org/prbpedro/account-manager-domain/)
 [![Coverage Status](https://coveralls.io/repos/github/prbpedro/account-manager-domain/badge.svg)](https://coveralls.io/github/prbpedro/account-manager-domain)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Technologies 
 
